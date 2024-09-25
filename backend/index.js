@@ -2,20 +2,22 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
+const path = require('path');
 require('dotenv').config(); // Load environment variables from .env
 
-console.log("MongoDB URL after loading:", process.env.MONGODB_URL);
+debugger;
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-console.log("prosee", process.env.MONGODB_URL)
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/',(req,res)=>{
     res.send("Welcome to Listing Product Backend")
 })
 
-console.log("prosee", process.env.MONGODB_URL)
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -31,7 +33,8 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use('/api', productRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = 9000;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

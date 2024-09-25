@@ -1,15 +1,23 @@
 const Product = require('../models/productModel');
 
 const createProduct = async (req, res) => {
+  debugger;
   try {
-    const { title, description,price,imageUrl } = req.body;
-    console.log(title)
+    const { title, description, price} = req.body;
+
+    const imageFiles = req.file?.filename;
+    debugger;
+    if (!imageFiles) {
+      return res.status(400).json({ error: 'No file uploaded.' });
+    }  
+  
     const product = new Product({
       title,
       description,
       price,
-      imageUrl,
+      imageFile: `/uploads/${imageFiles}`,
     });
+    console.log("prod", product);
     await product.save();
     res.status(201).json(product);
   } catch (error) {
