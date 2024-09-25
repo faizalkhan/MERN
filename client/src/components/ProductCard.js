@@ -52,10 +52,9 @@ function ProductCard({ product, onEdit, onDelete }) {
   return (
     <div className="product-card">
       <div className="product-image">
-        <img src={product.imageUrl} alt={product.title} />
+        <img src={`http://localhost:9000${product.imageFile} `}alt={product.title} />
       </div>
       <div className="product-details">
-        <h3>{product.title}</h3>
         <p>{product.description}</p>
         <p>Price: ${product.price}</p>
       </div>
