@@ -1,12 +1,10 @@
 const Product = require('../models/productModel');
 
 const createProduct = async (req, res) => {
-  debugger;
   try {
     const { title, description, price} = req.body;
-
     const imageFiles = req.file?.filename;
-    debugger;
+   
     if (!imageFiles) {
       return res.status(400).json({ error: 'No file uploaded.' });
     }  
@@ -17,7 +15,6 @@ const createProduct = async (req, res) => {
       price,
       imageFile: `/uploads/${imageFiles}`,
     });
-    console.log("prod", product);
     await product.save();
     res.status(201).json(product);
   } catch (error) {
@@ -27,7 +24,6 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-   debugger;
     const products = await Product.find();
     res.json(products);
   } catch (error) {

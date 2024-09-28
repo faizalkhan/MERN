@@ -5,8 +5,6 @@ const productRoutes = require('./routes/productRoutes');
 const path = require('path');
 require('dotenv').config(); // Load environment variables from .env
 
-debugger;
-
 const app = express();
 
 app.use(express.json());
@@ -21,6 +19,7 @@ app.get('/',(req,res)=>{
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 10000
 })
 
 

@@ -43,16 +43,18 @@
 
 // export default ProductCard;
 
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/ProductCard.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../styles/ProductCard.css";
 
 function ProductCard({ product, onEdit, onDelete }) {
   return (
     <div className="product-card">
       <div className="product-image">
-        <img src={`http://localhost:9000${product.imageFile} `}alt={product.title} />
+        <img
+          src={`http://localhost:9000${product.imageFile}`}
+          alt={product.title}
+        />
       </div>
       <div className="product-details">
         <p>{product.description}</p>
@@ -61,7 +63,8 @@ function ProductCard({ product, onEdit, onDelete }) {
       <div className="product-actions">
         <button onClick={() => onEdit(product)}>Edit</button>
         <button onClick={() => onDelete(product._id)}>Delete</button>
-        <Link to={`/product/${product._id}`}>View Details</Link> {/* Add this link */}
+        <Link to={`/product/${product._id}`}>View Details</Link>{" "}
+        {/* Add this link */}
       </div>
     </div>
   );

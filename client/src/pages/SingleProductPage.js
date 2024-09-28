@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios'; // Import Axios or your preferred HTTP library
-import '../styles/SingleProductPage.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios"; // Import Axios or your preferred HTTP library
+import "../styles/SingleProductPage.css";
 
 function SingleProductPage() {
   const { productId } = useParams();
@@ -13,10 +13,12 @@ function SingleProductPage() {
 
   const fetchProduct = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/products/${id}`); // Adjust the API endpoint
+      const response = await axios.get(
+        `http://localhost:9000/api/products/${id}`,
+      ); // Adjust the API endpoint
       setProduct(response.data);
     } catch (error) {
-      console.error('Error fetching product:', error);
+      console.error("Error fetching product:", error);
     }
   };
 
@@ -27,8 +29,10 @@ function SingleProductPage() {
   return (
     <div className="single-product-page">
       <div className="product-image">
-      
-        <img src={`http://localhost:9000${product.imageFile}`} alt={product.title} />
+        <img
+          src={`http://localhost:9000${product.imageFile}`}
+          alt={product.title}
+        />
       </div>
       <div className="product-details">
         <h2>{product.title}</h2>
