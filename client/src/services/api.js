@@ -1,7 +1,7 @@
 // api.js
 import axios from "axios";
 
-const API_URL = "http://localhost:9000/api";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -14,7 +14,7 @@ const api = axios.create({
 
 export const getAllProducts = async () => {
   try {
-    const response = await api.get("/products");
+    const response = await api.get("api/products");
     return response.data;
   } catch (error) {
     throw error;
@@ -24,7 +24,7 @@ export const getAllProducts = async () => {
 export const createProduct = async (productData) => {
   try {
     console.log("PD", productData);
-    const response = await api.post("/products", productData, {
+    const response = await api.post("api/products", productData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -37,7 +37,7 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (productId, productData) => {
   try {
-    const response = await api.put(`/products/${productId}`, productData);
+    const response = await api.put(`api/products/${productId}`, productData);
     return response.data;
   } catch (error) {
     throw error;
@@ -46,7 +46,7 @@ export const updateProduct = async (productId, productData) => {
 
 export const deleteProduct = async (productId) => {
   try {
-    const response = await api.delete(`/products/${productId}`);
+    const response = await api.delete(`api/products/${productId}`);
     return response.data;
   } catch (error) {
     throw error;
