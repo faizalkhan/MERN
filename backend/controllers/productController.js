@@ -13,7 +13,7 @@ const createProduct = async (req, res) => {
       title,
       description,
       price,
-      imageFile: `/uploads/${imageFiles}`,
+      imageFile: `uploads/${imageFiles}`,
     });
     await product.save();
     res.status(201).json(product);
