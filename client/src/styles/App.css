@@ -35,7 +35,7 @@ body {
 .product-actions {
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .add-edit-product {

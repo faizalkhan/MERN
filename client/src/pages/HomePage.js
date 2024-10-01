@@ -66,15 +66,18 @@ function HomePage() {
   return (
     <div className="home-page">
       <h1>REACT </h1>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="flex-grow-1">
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+          />
+        </div>
 
-      <SearchBar
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
-      />
-
-      <Link to="/add-product">
-        <button>Add Product</button>
-      </Link>
+        <Link to="/add-product">
+          <button className="btn btn-primary ms-2">Add Product</button>
+        </Link>
+      </div>
       <Outlet />
       {/* <AddEditProduct product={editingProduct} onSave={handleSave} onCancel={handleCancel} /> */}
       <ProductList
