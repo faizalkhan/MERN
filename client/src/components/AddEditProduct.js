@@ -45,7 +45,7 @@ function AddEditProduct({ product, onCancel }) {
     title: "",
     description: "",
     price: "",
-    onlinePrice : "",
+    onlinePrice: "",
     imageFile: null,
   });
   const fileInputRef = useRef(null);
@@ -92,12 +92,10 @@ function AddEditProduct({ product, onCancel }) {
       formPayload.append("imageFile", formData.imageFile);
     }
 
-
     for (const [key, value] of formPayload.entries()) {
       console.log(`${key}: ${value}`);
     }
     console.log();
-
 
     await onSave(formPayload);
 
@@ -105,7 +103,7 @@ function AddEditProduct({ product, onCancel }) {
       title: "",
       description: "",
       price: "",
-      onlinePrice :"",
+      onlinePrice: "",
       imageFile: null,
     });
 
@@ -133,7 +131,8 @@ function AddEditProduct({ product, onCancel }) {
         </label>
         <label>
           Description:
-          <textarea  rows="12"
+          <textarea
+            rows="12"
             name="description"
             value={formData.description}
             onChange={handleChange}
