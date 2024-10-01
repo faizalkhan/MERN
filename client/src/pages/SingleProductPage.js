@@ -6,6 +6,7 @@ import "../styles/SingleProductPage.css";
 function SingleProductPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+ 
 
   useEffect(() => {
     fetchProduct(productId);
@@ -17,6 +18,7 @@ function SingleProductPage() {
         `http://localhost:9000/api/products/${id}`,
       ); // Adjust the API endpoint
       setProduct(response.data);
+      
     } catch (error) {
       console.error("Error fetching product:", error);
     }
@@ -26,21 +28,24 @@ function SingleProductPage() {
     return <div>Loading...</div>;
   }
 
+  const imageSrc = `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
       <div className="product-image">
         <img
-          src={`http://localhost:9000${product.imageFile}`}
+          src={imageSrc}
           alt={product.title}
         />
       </div>
       <div className="product-details">
-        <h2>{product.title}</h2>
+        <h2>{product.title}hj</h2>
+
         <p>{product.description}</p>
-        <p>Price: ${product.price}</p>
+        <p>Price: ₹{product.price}</p>
+        <p><span>Online Price: </span> <span className="online-price">₹{product.onlinePrice} </span></p>
         <div className="product-buttons">
-          <button className="buy-now">Buy Now</button>
-          <button className="add-to-cart">Add to Cart</button>
+          {/* <button className="buy-now">Buy Now</button>
+          <button className="add-to-cart">Add to Cart</button> */}
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ function AddEditProduct({ product, onCancel }) {
   const notify = () => toast("Product saved successfully");
 
   const onSave = async (productData) => {
+    debugger;
     const fetchProducts = async () => {
       try {
         const productsData = await getAllProducts();
@@ -44,6 +45,7 @@ function AddEditProduct({ product, onCancel }) {
     title: "",
     description: "",
     price: "",
+    onlinePrice : "",
     imageFile: null,
   });
   const fileInputRef = useRef(null);
@@ -55,6 +57,7 @@ function AddEditProduct({ product, onCancel }) {
         title: product.title,
         description: product.description,
         price: product.price,
+        onlinePrice: product.onlinePrice,
         imageFile: null,
       });
     }
@@ -77,15 +80,24 @@ function AddEditProduct({ product, onCancel }) {
   };
 
   const handleSubmit = async (e) => {
+    debugger;
     e.preventDefault();
 
     const formPayload = new FormData();
     formPayload.append("title", formData.title);
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
+    formPayload.append("onlinePrice", formData.onlinePrice);
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
     }
+
+
+    for (const [key, value] of formPayload.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    console.log();
+
 
     await onSave(formPayload);
 
@@ -93,6 +105,7 @@ function AddEditProduct({ product, onCancel }) {
       title: "",
       description: "",
       price: "",
+      onlinePrice :"",
       imageFile: null,
     });
 
@@ -120,7 +133,7 @@ function AddEditProduct({ product, onCancel }) {
         </label>
         <label>
           Description:
-          <textarea
+          <textarea  rows="12"
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -132,6 +145,15 @@ function AddEditProduct({ product, onCancel }) {
             type="number"
             name="price"
             value={formData.price}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Online Price:
+          <input
+            type="number"
+            name="onlinePrice"
+            value={formData.onlinePrice}
             onChange={handleChange}
           />
         </label>

@@ -2,7 +2,7 @@
 
 .product-card {
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 10px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -28,7 +28,7 @@
 .product-actions {
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center
 }
 
 .product-actions button {
@@ -39,6 +39,32 @@
   cursor: pointer;
 }
 
+.product-actions button a 
+{
+  color:#fff;
+  text-decoration: none;
+}
+
 .product-actions button:last-child {
   background-color: #dc3545;
 }
+
+h3
+{
+  font-size: 16px;
+  font-weight: 500;
+  color: #212121;
+  text-align: left;
+}
+
+.online-price
+{
+  text-decoration: line-through;
+  font-size: 14px;
+  color: #878787;
+}
+span
+{
+  font-size: 12px !important;
+}
+

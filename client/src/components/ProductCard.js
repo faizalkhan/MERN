@@ -16,13 +16,16 @@ function ProductCard({ product, onEdit, onDelete }) {
         />
       </div>
       <div className="product-details">
-        <p>{product.description}</p>
-        <p>Price: ${product.price}</p>
+        <p><b>{product.title} </b></p>
+        <h3> <strong> Price: ₹{product.price} </strong> <span> OnlinePrice:  </span><span class="online-price">₹{product.onlinePrice}  </span>  </h3>
+      
       </div>
       <div className="product-actions">
-        <button onClick={() => onEdit(product)}>Edit</button>
-        <button onClick={() => onDelete(product._id)}>Delete</button>
-        <Link to={`/product/${product._id}`}>View Details</Link>{" "}
+        {/* <button onClick={() => onEdit(product)}>Edit</button>
+        <button onClick={() => onDelete(product._id)}>Delete</button> */}
+       <button>  <Link to={`/product/${product._id}`}>View Details</Link>  </button> 
+
+     
         {/* Add this link */}
       </div>
     </div>
