@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import "../styles/SingleProductPage.css";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function SingleProductPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchProduct(productId);
@@ -29,6 +31,9 @@ function SingleProductPage() {
   const imageSrc = `${API_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
+         <button className="back-button" onClick={() => navigate(-1)}>
+        &larr; Back
+      </button> 
       <div className="product-image">
         <img src={imageSrc} alt={product.title} />
       </div>
