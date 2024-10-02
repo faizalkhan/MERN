@@ -1,7 +1,7 @@
 /* AddEditProduct.css */
 
 .add-edit-product {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   background-color: white;
   padding: 20px;
@@ -17,11 +17,14 @@
 .add-edit-product label {
   display: block;
   margin-bottom: 5px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .add-edit-product input,
 .add-edit-product textarea {
-  width: 90%;
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;

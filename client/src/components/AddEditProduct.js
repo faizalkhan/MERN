@@ -11,15 +11,19 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 function AddEditProduct({ product, onCancel }) {
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
 
+  const [value, setValue] = useState("");
+
   const notify = () => toast("Product saved successfully");
 
   const onSave = async (productData) => {
-    debugger;
-    const fetchProducts = async () => {
+     const fetchProducts = async () => {
       try {
         const productsData = await getAllProducts();
         setProducts(productsData);
@@ -50,7 +54,7 @@ function AddEditProduct({ product, onCancel }) {
   });
   const fileInputRef = useRef(null);
 
-  console.log("fileInputRef", fileInputRef);
+
   useEffect(() => {
     if (product) {
       setFormData({
@@ -71,6 +75,13 @@ function AddEditProduct({ product, onCancel }) {
     }));
   };
 
+  const handleDescriptionChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      description: value,
+    }));
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData((prevData) => ({
@@ -80,7 +91,6 @@ function AddEditProduct({ product, onCancel }) {
   };
 
   const handleSubmit = async (e) => {
-    debugger;
     e.preventDefault();
 
     const formPayload = new FormData();
@@ -91,11 +101,6 @@ function AddEditProduct({ product, onCancel }) {
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
     }
-
-    for (const [key, value] of formPayload.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    console.log();
 
     await onSave(formPayload);
 
@@ -120,44 +125,56 @@ function AddEditProduct({ product, onCancel }) {
     <div className="add-edit-product">
       <h2>{product ? "Edit Product" : "Add Product"}</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <label>
-          Title:
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">
+            {" "}
+            Title:
+          </label>
           <input
+            className="form-control"
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Description:
-          <textarea
-            rows="12"
+        </div>
+
+        <div class="mb-3 mt-3" style={{ height: "600px" }}>
+          <label class="form-label"> Description: </label>
+
+          <ReactQuill
+            theme="snow"
+            style={{ height: "500px" }}
             name="description"
             value={formData.description}
-            onChange={handleChange}
+            onChange={handleDescriptionChange}
           />
-        </label>
-        <label>
-          Price:
+        </div>
+
+        <div class="mb-3 mt-3">
+          <label class="form-label">Price: </label>
           <input
+            className="form-control"
             type="number"
             name="price"
             value={formData.price}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Online Price:
+        </div>
+
+        <div class="mb-3 mt-3">
+          <label class="form-label">Online Price:</label>
           <input
+            className="form-control"
             type="number"
             name="onlinePrice"
             value={formData.onlinePrice}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Image:
+        </div>
+
+        <div class="mb-3 mt-3">
+          <label class="form-label">Image:</label>
           <input
             type="file"
             name="imageFile"
@@ -166,7 +183,8 @@ function AddEditProduct({ product, onCancel }) {
             required={!product}
             ref={fileInputRef}
           />
-        </label>
+        </div>
+
         <div className="buttons">
           <button type="submit">
             {product ? "Save Changes" : "Add Product"}

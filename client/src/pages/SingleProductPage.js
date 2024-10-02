@@ -33,9 +33,8 @@ function SingleProductPage() {
         <img src={imageSrc} alt={product.title} />
       </div>
       <div className="product-details">
-        <h2>{product.title}hj</h2>
-
-        <p>{product.description}</p>
+        <h2>{product.title}</h2>
+        <div dangerouslySetInnerHTML={{ __html: product.description }} />
         <p>Price: ₹{product.price}</p>
         <p>
           <span>Online Price: </span>{" "}

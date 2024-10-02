@@ -22,7 +22,7 @@ function ProductCard({ product, onEdit, onDelete }) {
       </div>
       <div className="product-actions">
         {/* <button onClick={() => onEdit(product)}>Edit</button>*/}
-        <button onClick={() => onDelete(product._id)}>Delete</button> 
+        <button onClick={() => onDelete(product._id)}>Delete</button>
         <button>
           {" "}
           <Link to={`/product/${product._id}`}>View Details</Link>{" "}
