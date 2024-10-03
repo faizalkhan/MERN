@@ -1,9 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const path = require('path');
-require('dotenv').config(); // Load environment variables from .env
+ // Load environment variables from .env
 
 const app = express();
 
@@ -15,6 +16,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.get('/',(req,res)=>{
     res.send("Welcome to Listing Product Backend")
 })
+
+console.log("dd", `${process.env}`)
+
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
+
+console.log("Environment Variables:", process.env.NODE_ENV );
+
+
 
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
@@ -32,7 +41,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use('/api', productRoutes);
 
-const PORT = 9000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
