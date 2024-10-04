@@ -34,7 +34,8 @@ const getProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { title, description, price, imageUrl, onlinePrice } = req.body;
+    const { title, description, price, onlinePrice } = req.body;
+    const imageFile = req.file ? req.file.filename : null;    
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -42,7 +43,7 @@ const updateProduct = async (req, res) => {
     product.title = title;
     product.price = price;
     product.description = description;
-    product.imageUrl = imageUrl;
+    product.imageFile = `uploads/${imageFile}`,
     product.onlinePrice =  onlinePrice;
     await product.save();
     res.json(product);
