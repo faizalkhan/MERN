@@ -23,7 +23,7 @@ export const getAllProducts = async () => {
 
 export const createProduct = async (productData) => {
   try {
-     const response = await api.post("api/products", productData, {
+    const response = await api.post("api/products", productData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -36,7 +36,11 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (productId, productData) => {
   try {
-    const response = await api.put(`api/products/${productId}`, productData);
+    const response = await api.put(`api/products/${productId}`, productData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
