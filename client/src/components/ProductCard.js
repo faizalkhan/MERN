@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/ProductCard.css";
 
 function ProductCard({ product, onEdit, onDelete }) {
-  const imageSrc = `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`;
+  //const imageSrc = `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`;
 
   const handleEdit = () => {
     onEdit(product);
@@ -12,7 +12,7 @@ function ProductCard({ product, onEdit, onDelete }) {
   return (
     <div className="product-card">
       <div className="product-image">
-        <img src={imageSrc} alt={product.title} />
+        <img src={product.imageFile} alt={product.title} />
       </div>
       <div className="product-details">
         <p>

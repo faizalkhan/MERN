@@ -29,14 +29,14 @@ function SingleProductPage() {
     return <LoadingSpinner />;
   }
 
-  const imageSrc = `${API_URL}${product.imageFile}`;
+  //const imageSrc = `${API_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
       <button className="back-button" onClick={() => navigate(-1)}>
         &larr; Back
       </button>
       <div className="product-image">
-        <img src={imageSrc} alt={product.title} />
+        <img src={product.imageFile} alt={product.title} />
       </div>
       <div className="product-details">
         <h2>{product.title}</h2>

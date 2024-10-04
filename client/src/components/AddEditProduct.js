@@ -67,7 +67,7 @@ function AddEditProduct({ onCancel }) {
         onlinePrice: product.onlinePrice,
         imageFile: product.imageFile,
         previewUrl: product.imageFile
-          ? `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`
+          ? `${product.imageFile}`
           : null,
       });
     }
