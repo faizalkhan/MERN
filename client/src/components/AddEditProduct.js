@@ -13,17 +13,20 @@ import "react-toastify/dist/ReactToastify.css";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useLocation } from "react-router-dom";
 
-function AddEditProduct({ product, onCancel }) {
+function AddEditProduct({ onCancel }) {
+  const location = useLocation();
+  const product = location.state?.product; // Access the product from state
+
+
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
-
-  const [value, setValue] = useState("");
 
   const notify = () => toast("Product saved successfully");
 
   const onSave = async (productData) => {
-     const fetchProducts = async () => {
+    const fetchProducts = async () => {
       try {
         const productsData = await getAllProducts();
         setProducts(productsData);
@@ -35,6 +38,7 @@ function AddEditProduct({ product, onCancel }) {
     try {
       if (editingProduct) {
         await updateProduct(editingProduct._id, productData);
+
         setEditingProduct(null);
       } else {
         await createProduct(productData);
@@ -54,15 +58,18 @@ function AddEditProduct({ product, onCancel }) {
   });
   const fileInputRef = useRef(null);
 
-
   useEffect(() => {
     if (product) {
+      setEditingProduct(product);
       setFormData({
         title: product.title,
         description: product.description,
         price: product.price,
         onlinePrice: product.onlinePrice,
-        imageFile: null,
+        imageFile: product.imageFile,
+        previewUrl: product.imageFile
+          ? `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`
+          : null,
       });
     }
   }, [product]);
@@ -84,10 +91,16 @@ function AddEditProduct({ product, onCancel }) {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      imageFile: file,
-    }));
+
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+
+      setFormData((prevData) => ({
+        ...prevData,
+        imageFile: file,
+        previewUrl: previewUrl,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -102,6 +115,7 @@ function AddEditProduct({ product, onCancel }) {
       formPayload.append("imageFile", formData.imageFile);
     }
 
+    setEditingProduct(formPayload);
     await onSave(formPayload);
 
     setFormData({
@@ -110,23 +124,27 @@ function AddEditProduct({ product, onCancel }) {
       price: "",
       onlinePrice: "",
       imageFile: null,
+      previewUrl: null,
     });
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
     toast.success("Product saved successfully!", {
-      autoClose: 500,
+      autoClose: 300,
       onClose: () => navigate("/"),
     });
   };
 
   return (
     <div className="add-edit-product">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        &larr; Back
+      </button>
       <h2>{product ? "Edit Product" : "Add Product"}</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div class="mb-3 mt-3">
-          <label for="email" class="form-label">
+        <div className="mb-3 mt-3">
+          <label for="email" className="form-label">
             {" "}
             Title:
           </label>
@@ -139,9 +157,8 @@ function AddEditProduct({ product, onCancel }) {
           />
         </div>
 
-        <div class="mb-3 mt-3" style={{ height: "600px" }}>
-          <label class="form-label"> Description: </label>
-
+        <div className="mb-3 mt-3" style={{ height: "600px" }}>
+          <label className="form-label"> Description: </label>
           <ReactQuill
             theme="snow"
             style={{ height: "500px" }}
@@ -151,8 +168,8 @@ function AddEditProduct({ product, onCancel }) {
           />
         </div>
 
-        <div class="mb-3 mt-3">
-          <label class="form-label">Price: </label>
+        <div className="mb-3 mt-3">
+          <label className="form-label">Price: </label>
           <input
             className="form-control"
             type="number"
@@ -162,8 +179,8 @@ function AddEditProduct({ product, onCancel }) {
           />
         </div>
 
-        <div class="mb-3 mt-3">
-          <label class="form-label">Online Price:</label>
+        <div className="mb-3 mt-3">
+          <label className="form-label">Online Price:</label>
           <input
             className="form-control"
             type="number"
@@ -173,8 +190,17 @@ function AddEditProduct({ product, onCancel }) {
           />
         </div>
 
-        <div class="mb-3 mt-3">
-          <label class="form-label">Image:</label>
+        <div className="mb-3 mt-3">
+          <label className="form-label">Image:</label>
+
+          {formData.previewUrl && (
+            <img
+              src={formData.previewUrl} 
+              alt={formData.title}
+              style={{ height: "200px", width: "auto", marginBottom: "10px" }}
+            />
+          )}
+
           <input
             type="file"
             name="imageFile"

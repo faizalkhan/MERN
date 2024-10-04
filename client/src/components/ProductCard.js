@@ -5,6 +5,10 @@ import "../styles/ProductCard.css";
 function ProductCard({ product, onEdit, onDelete }) {
   const imageSrc = `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`;
 
+  const handleEdit = () => {
+    onEdit(product);
+  };
+
   return (
     <div className="product-card">
       <div className="product-image">
@@ -17,11 +21,11 @@ function ProductCard({ product, onEdit, onDelete }) {
         <h3>
           {" "}
           <strong> Price: ₹{product.price} </strong> <span> OnlinePrice: </span>
-          <span class="online-price">₹{product.onlinePrice} </span>{" "}
+          <span className="online-price">₹{product.onlinePrice} </span>{" "}
         </h3>
       </div>
       <div className="product-actions">
-        {/* <button onClick={() => onEdit(product)}>Edit</button>*/}
+        { <button onClick={handleEdit}>Edit</button>}
         <button onClick={() => onDelete(product._id)}>Delete</button>
         <button>
           {" "}

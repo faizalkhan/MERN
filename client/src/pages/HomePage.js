@@ -10,6 +10,7 @@ import {
 } from "../services/api"; // Import your CRUD functions
 import "../styles/HomePage.css";
 import SearchBar from "../components/SearchBar";
+import { LoadingSpinner } from "../components/common/Spinner";
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,16 +20,21 @@ function HomePage() {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
+    setLoading(true);
     try {
       const productsData = await getAllProducts();
       setProducts(productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -80,11 +86,19 @@ function HomePage() {
       </div>
       <Outlet />
       {/* <AddEditProduct product={editingProduct} onSave={handleSave} onCancel={handleCancel} /> */}
-      <ProductList
-        products={filteredProducts}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+     
+      {loading ? (
+       <LoadingSpinner />
+      ) : (
+        <ProductList
+          products={filteredProducts}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
+
+
+
     </div>
   );
 }

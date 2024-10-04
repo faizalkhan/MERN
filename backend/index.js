@@ -17,13 +17,7 @@ app.get('/',(req,res)=>{
     res.send("Welcome to Listing Product Backend")
 })
 
-console.log("dd", `${process.env}`)
-
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
-
-console.log("Environment Variables:", process.env.NODE_ENV );
-
-
 
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
