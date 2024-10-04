@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import "../styles/SingleProductPage.css";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/common/Spinner";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function SingleProductPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProduct(productId);
@@ -25,15 +26,15 @@ function SingleProductPage() {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   const imageSrc = `${API_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
-         <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={() => navigate(-1)}>
         &larr; Back
-      </button> 
+      </button>
       <div className="product-image">
         <img src={imageSrc} alt={product.title} />
       </div>

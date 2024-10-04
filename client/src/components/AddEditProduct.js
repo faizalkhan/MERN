@@ -19,7 +19,6 @@ function AddEditProduct({ onCancel }) {
   const location = useLocation();
   const product = location.state?.product; // Access the product from state
 
-
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
 
@@ -195,7 +194,7 @@ function AddEditProduct({ onCancel }) {
 
           {formData.previewUrl && (
             <img
-              src={formData.previewUrl} 
+              src={formData.previewUrl}
               alt={formData.title}
               style={{ height: "200px", width: "auto", marginBottom: "10px" }}
             />

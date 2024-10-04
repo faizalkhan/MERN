@@ -25,9 +25,18 @@ function ProductCard({ product, onEdit, onDelete }) {
         </h3>
       </div>
       <div className="product-actions">
-        { <button onClick={handleEdit}>Edit</button>}
-        <button onClick={() => onDelete(product._id)}>Delete</button>
-        <button>
+        {
+          <button className="btn btn-primary ms-2" onClick={handleEdit}>
+            Edit
+          </button>
+        }
+        <button
+          className="btn btn-danger  ms-2"
+          onClick={() => onDelete(product._id)}
+        >
+          Delete
+        </button>
+        <button className="btn btn-danger  ms-2">
           {" "}
           <Link to={`/product/${product._id}`}>View Details</Link>{" "}
         </button>

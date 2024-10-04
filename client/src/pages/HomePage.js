@@ -33,7 +33,7 @@ function HomePage() {
       setProducts(productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -86,9 +86,9 @@ function HomePage() {
       </div>
       <Outlet />
       {/* <AddEditProduct product={editingProduct} onSave={handleSave} onCancel={handleCancel} /> */}
-     
+
       {loading ? (
-       <LoadingSpinner />
+        <LoadingSpinner />
       ) : (
         <ProductList
           products={filteredProducts}
@@ -96,9 +96,6 @@ function HomePage() {
           onDelete={handleDelete}
         />
       )}
-
-
-
     </div>
   );
 }
