@@ -42,7 +42,7 @@ function SingleProductPage() {
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
         <p>
-          <strong>Price: ₹{product.price}</strong>
+          <strong>Price: ₹{product.price.toLocaleString()}</strong>
         </p>
         <p>
           <span>Online Price: </span>{" "}
