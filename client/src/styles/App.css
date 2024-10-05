@@ -73,7 +73,7 @@ body {
   border-color: #007bff;
 }
 
-.product-list .product-image
+.product-list .product-image img
 {
   height: 300px;
   object-fit: cover;
