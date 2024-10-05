@@ -46,7 +46,7 @@ function SingleProductPage() {
         </p>
         <p>
           <span>Online Price: </span>{" "}
-          <span className="online-price">₹{product.onlinePrice} </span>
+          <span className="online-price">₹{product.onlinePrice.toLocaleString()} </span>
         </p>
         <div className="product-buttons">
           {/* <button className="buy-now">Buy Now</button>
