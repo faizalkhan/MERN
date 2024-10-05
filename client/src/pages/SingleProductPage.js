@@ -41,7 +41,9 @@ function SingleProductPage() {
       <div className="product-details">
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
-        <p>Price: ₹{product.price}</p>
+        <p>
+          <strong>Price: ₹{product.price}</strong>
+        </p>
         <p>
           <span>Online Price: </span>{" "}
           <span className="online-price">₹{product.onlinePrice} </span>

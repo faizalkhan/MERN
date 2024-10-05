@@ -66,9 +66,7 @@ function AddEditProduct({ onCancel }) {
         price: product.price,
         onlinePrice: product.onlinePrice,
         imageFile: product.imageFile,
-        previewUrl: product.imageFile
-          ? `${product.imageFile}`
-          : null,
+        previewUrl: product.imageFile ? `${product.imageFile}` : null,
       });
     }
   }, [product]);
@@ -114,25 +112,43 @@ function AddEditProduct({ onCancel }) {
       formPayload.append("imageFile", formData.imageFile);
     }
 
-    setEditingProduct(formPayload);
-    await onSave(formPayload);
-
-    setFormData({
-      title: "",
-      description: "",
-      price: "",
-      onlinePrice: "",
-      imageFile: null,
-      previewUrl: null,
-    });
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (
+      !formData.price ||
+      !formData.onlinePrice ||
+      !formData.title ||
+      !formData.description
+    ) {
+      return toast.error(
+        "TItle, Description, Price and Online Price are required.",
+      );
     }
-    toast.success("Product saved successfully!", {
-      autoClose: 300,
-      onClose: () => navigate("/"),
-    });
+    setEditingProduct(formPayload);
+
+    try {
+      await onSave(formPayload);
+
+      setFormData({
+        title: "",
+        description: "",
+        price: "",
+        onlinePrice: "",
+        imageFile: null,
+        previewUrl: null,
+      });
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      toast.success("Product saved successfully!", {
+        autoClose: 300,
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("Failed to save product. Please try again.", {
+        autoClose: 300,
+      });
+      console.error("Error saving product:", error);
+    }
   };
 
   return (

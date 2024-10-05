@@ -110,3 +110,7 @@
 .back-button:hover {
   background-color: #ddd;
 }
+
+.single-product-page strong {
+  font-size: 28px;
+}
