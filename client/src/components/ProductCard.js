@@ -20,8 +20,9 @@ function ProductCard({ product, onEdit, onDelete }) {
         </p>
         <h3>
           {" "}
-          <strong> Price: ₹{product.price} </strong> <span> OnlinePrice: </span>
-          <span className="online-price">₹{product.onlinePrice} </span>{" "}
+          <strong> Price: ₹{product.price.toLocaleString()} </strong> 
+          <p><span> OnlinePrice: </span>
+          <span className="online-price">₹{product.onlinePrice.toLocaleString()} </span></p>
         </h3>
       </div>
       <div className="product-actions">

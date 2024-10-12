@@ -72,3 +72,10 @@ body {
   color: white;
   border-color: #007bff;
 }
+
+.product-list .product-image img
+{
+  height: 300px;
+  object-fit: cover;
+  width: 250px;
+}

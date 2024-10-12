@@ -17,7 +17,7 @@
   /* max-width: 50%;
   height: auto; */
 
-  width: 250px; /* Fixed width */
+  width: auto; /* Fixed width */
   height: 300px; /* Fixed height */
   object-fit: cover;
 }
@@ -112,5 +112,5 @@
 }
 
 .single-product-page strong {
-  font-size: 28px;
+  /* font-size: 28px; */
 }
