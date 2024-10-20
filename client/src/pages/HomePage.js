@@ -12,7 +12,7 @@ import "../styles/HomePage.css";
 import SearchBar from "../components/SearchBar";
 import { LoadingSpinner } from "../components/common/Spinner";
 
-function HomePage() {
+function HomePage({isAuthenticated}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [products, setProducts] = useState([]);
