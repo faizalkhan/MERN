@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/ProductCard.css";
 
-function ProductCard({ product, onEdit, onDelete }) {
+function ProductCard({ product, onEdit, onDelete, isAuthenticated }) {
   //const imageSrc = `${process.env.REACT_APP_BACKEND_URL}${product.imageFile}`;
 
   const handleEdit = () => {
@@ -26,17 +26,23 @@ function ProductCard({ product, onEdit, onDelete }) {
         </h3>
       </div>
       <div className="product-actions">
-        {
+
+      {isAuthenticated && (
+        
+        <>
           <button className="btn btn-primary ms-2" onClick={handleEdit}>
             Edit
           </button>
-        }
+        
         <button
           className="btn btn-danger  ms-2"
           onClick={() => onDelete(product._id)}
         >
           Delete
         </button>
+      </>
+      )}
+
         <button className="btn btn-danger  ms-2">
           {" "}
           <Link to={`/product/${product._id}`}>View Details</Link>{" "}

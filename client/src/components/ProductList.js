@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import "../styles/ProductList.css";
 
-function ProductList({ products, onDelete }) {
+function ProductList({ products, onDelete, isAuthenticated}) {
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
 
@@ -25,6 +25,7 @@ function ProductList({ products, onDelete }) {
           product={product}
           onEdit={handleEdit} // Ensure onEdit is a function that handles editing
           onDelete={onDelete}
+          isAuthenticated={isAuthenticated} 
         />
       ))}
     </div>

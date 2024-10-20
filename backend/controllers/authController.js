@@ -55,14 +55,9 @@ exports.login = async (req, res) => {
             message: 'Password doesnt matches'        
        });
      }
-    //const user = await User.findOne({email});
+
 
     const token = signInToken(user._id);
-
-    console.log("token", token)
-    
-    console.log("user", user)
-
     res.status(200).json({
         status : 'success',
         token

@@ -14,12 +14,9 @@ import { LoadingSpinner } from "../components/common/Spinner";
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
-
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -94,6 +91,7 @@ function HomePage() {
           products={filteredProducts}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          isAuthenticated={isAuthenticated}  
         />
       )}
     </div>
