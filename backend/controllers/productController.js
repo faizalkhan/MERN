@@ -107,7 +107,7 @@ const updateProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-
+debugger;
     const { paymentMode } = req.query;
 
     let query = {};

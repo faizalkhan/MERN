@@ -11,6 +11,7 @@ import {
 import "../styles/HomePage.css";
 import SearchBar from "../components/SearchBar";
 import { LoadingSpinner } from "../components/common/Spinner";
+import PaymentModeFilter from "../components/PaymentModeFilter";
 
 function HomePage({isAuthenticated}) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,6 +19,12 @@ function HomePage({isAuthenticated}) {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
+    // States for payment mode filters
+    const [filterEMI, setFilterEMI] = useState(false);
+    const [filterCOD, setFilterCOD] = useState(false);
+    const [filterPAID, setFilterPAID] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -52,18 +59,36 @@ function HomePage({isAuthenticated}) {
     }
   };
 
-  useEffect(() => {
-    const filtered = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-
-    setFilteredProducts(filtered);
-  }, [searchQuery, products]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e);
+  };
+
+
+  useEffect(() => {
+    const filtered = products.filter((product) => {
+      // Filter by search query
+      const matchesSearchQuery =
+        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      // Filter by payment mode
+      const matchesPaymentMode =
+        (filterEMI && product.paymentMode === "EMI") ||
+        (filterCOD && product.paymentMode === "COD") ||
+        (filterPAID && product.paymentMode === "PAID") ||
+        (!filterEMI && !filterCOD && !filterPAID); // No filter applied
+
+      return matchesSearchQuery && matchesPaymentMode;
+    });
+
+    setFilteredProducts(filtered);
+  }, [searchQuery, products, filterEMI, filterCOD, filterPAID]);
+
+  const handleFilterChange = (mode) => {
+    if (mode === 'EMI') setFilterEMI(!filterEMI);
+    if (mode === 'COD') setFilterCOD(!filterCOD);
+    if (mode === 'PAID') setFilterPAID(!filterPAID);
   };
 
   return (
@@ -76,12 +101,26 @@ function HomePage({isAuthenticated}) {
             onSearchChange={handleSearchChange}
           />
         </div>
+
+
+      
+
+
   {isAuthenticated && ( 
         <Link to="/add-product">
           <button className="btn btn-primary ms-2">Add Product</button>
         </Link>
         )}
       </div>
+
+
+      <PaymentModeFilter
+          filterEMI={filterEMI}
+          filterCOD={filterCOD}
+          filterPAID={filterPAID}
+          onFilterChange={handleFilterChange}
+        />
+
       <Outlet />
       {/* <AddEditProduct product={editingProduct} onSave={handleSave} onCancel={handleCancel} /> */}
 
