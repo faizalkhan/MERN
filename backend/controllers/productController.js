@@ -1,90 +1,3 @@
-// const Product = require('../models/productModel');
-
-// const createProduct = async (req, res) => {
-//   try {
-//     const { title, description, price, onlinePrice} = req.body;
-//     const imageFiles = req.file?.filename;
-   
-//     if (!imageFiles) {
-//       return res.status(400).json({ error: 'No file uploaded.' });
-//     }  
-  
-//     const product = new Product({
-//       title,
-//       description,
-//       price,
-//       onlinePrice,
-//       imageFile: `uploads/${imageFiles}`,
-//     });
-//     await product.save();
-//     res.status(201).json(product);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Error creating product' });
-//   }
-// };
-
-// const getProducts = async (req, res) => {
-//   try {
-//     const products = await Product.find();
-//     res.json(products);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Error fetching products' });
-//   }
-// };
-
-// const updateProduct = async (req, res) => {
-//   try {
-//     const { title, description, price, onlinePrice } = req.body;
-//     const imageFile = req.file ? req.file.filename : null;    
-//     const product = await Product.findById(req.params.id);
-//     if (!product) {
-//       return res.status(404).json({ error: 'Product not found' });
-//     }
-//     product.title = title;
-//     product.price = price;
-//     product.description = description;
-//     product.imageFile = `uploads/${imageFile}`,
-//     product.onlinePrice =  onlinePrice;
-//     await product.save();
-//     res.json(product);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Error updating product' });
-//   }
-// };
-
-// const deleteProduct = async (req, res) => {
-//   try {
-//     const product = await Product.findByIdAndDelete(req.params.id);
-//     if (!product) {
-//       return res.status(404).json({ error: 'Product not found' });
-//     }
-//     res.json({ message: 'Product deleted successfully' });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Error deleting product' });
-//   }
-// };
-
-// const getProductById = async (req, res) => {
-//     try {
-//       const productId = req.params.id;
-//       const product = await Product.findById(productId);
-//       if (!product) {
-//         return res.status(404).json({ error: 'Product not found' });
-//       }
-//       res.json(product);
-//     } catch (error) {
-//       res.status(500).json({ error: 'Error fetching product' });
-//     }
-//   };
-
-// module.exports = {
-//   createProduct,
-//   getProducts,
-//   getProductById,
-//   updateProduct,
-//   deleteProduct,
-// };
-
 const Product = require('../models/productModel');
 
 const cloudinary = require('cloudinary').v2;
@@ -100,7 +13,7 @@ cloudinary.config({
 // Create a new product
 const createProduct = async (req, res) => {
   try {
-    const { title, description, price, onlinePrice } = req.body;
+    const { title, description, price, onlinePrice, paymentMode } = req.body;
     let imageFileUrl = req.file?.filename;
 
     // Upload to Cloudinary if an image is provided
@@ -128,6 +41,7 @@ const createProduct = async (req, res) => {
       price,
       onlinePrice,
       imageFile: imageFileUrl, // Save the image URL
+      paymentMode
     });
 
     // Save the product
@@ -193,8 +107,18 @@ const updateProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+
+    const { paymentMode } = req.query;
+
+    let query = {};
+
+    if (paymentMode) {
+      query.paymentMode = paymentMode;
+    }
+
+    const products = await Product.find(query);
     res.json(products);
+
   } catch (error) {
     res.status(500).json({ error: 'Error fetching products' });
   }

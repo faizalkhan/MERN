@@ -21,6 +21,11 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  paymentMode: {
+    type: String,
+    enum: ['EMI', 'COD', 'PAID'],
+    required: [true, 'Payment mode is required']
+  },
 });
 
 const Product = mongoose.model('Product', productSchema);

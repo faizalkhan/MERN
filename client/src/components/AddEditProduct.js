@@ -20,6 +20,9 @@ function AddEditProduct({ onCancel }) {
   const product = location.state?.product; // Access the product from state
 
   const [editingProduct, setEditingProduct] = useState(null);
+
+  const [paymentMode, setPaymentMode] = useState(null);
+
   const navigate = useNavigate();
 
   const notify = () => toast("Product saved successfully");
@@ -53,6 +56,7 @@ function AddEditProduct({ onCancel }) {
     description: "",
     price: "",
     onlinePrice: "",
+    paymentMode : null,
     imageFile: null,
   });
   const fileInputRef = useRef(null);
@@ -65,6 +69,7 @@ function AddEditProduct({ onCancel }) {
         description: product.description,
         price: product.price,
         onlinePrice: product.onlinePrice,
+        paymentMode : product.paymentMode,
         imageFile: product.imageFile,
         previewUrl: product.imageFile ? `${product.imageFile}` : null,
       });
@@ -100,14 +105,25 @@ function AddEditProduct({ onCancel }) {
     }
   };
 
+  const handlePayment = (e) => {
+    debugger;
+    console.log(e.target.value)
+    setFormData((prevData) => ({
+      ...prevData,
+      paymentMode: e.target.value,
+    }));
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  debugger;
     const formPayload = new FormData();
     formPayload.append("title", formData.title);
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
     formPayload.append("onlinePrice", formData.onlinePrice);
+    formPayload.append("paymentMode", formData.paymentMode);
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
     }
@@ -116,10 +132,11 @@ function AddEditProduct({ onCancel }) {
       !formData.price ||
       !formData.onlinePrice ||
       !formData.title ||
-      !formData.description
+      !formData.description ||
+      !formData.paymentMode
     ) {
       return toast.error(
-        "TItle, Description, Price and Online Price are required.",
+        "TItle, Description, Price, Online Price and payment Mode are required.",
       );
     }
     setEditingProduct(formPayload);
@@ -133,6 +150,7 @@ function AddEditProduct({ onCancel }) {
         price: "",
         onlinePrice: "",
         imageFile: null,
+        paymentMode: "",
         previewUrl: null,
       });
 
@@ -224,6 +242,25 @@ function AddEditProduct({ onCancel }) {
             required={!product}
             ref={fileInputRef}
           />
+        </div>
+
+
+
+        <div className="mb-3 mt-3">
+          <label className="form-label">Payment Mode:</label>
+
+        
+          <select
+          className="form-control"
+        value={formData.paymentMode}
+        onChange={handlePayment}
+        required
+      >
+      <option value="">Please select mode</option>
+      <option value="COD">COD</option>
+       <option value="EMI">EMI</option>
+        <option value="PAID">PAID</option>
+       </select>
         </div>
 
         <div className="buttons">
