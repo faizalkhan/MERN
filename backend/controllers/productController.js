@@ -55,7 +55,7 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { title, description, price, onlinePrice } = req.body;
+    const { title, description, price, onlinePrice, paymentMode } = req.body;
     const productId = req.params.id;
     const product = await Product.findById(productId);
 
@@ -68,6 +68,7 @@ const updateProduct = async (req, res) => {
     product.description = description;
     product.price = price;
     product.onlinePrice = onlinePrice;
+    product.paymentMode = paymentMode;
 
     // Upload new image to Cloudinary if a new file is provided
     if (req.file) {
@@ -107,7 +108,7 @@ const updateProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-debugger;
+
     const { paymentMode } = req.query;
 
     let query = {};
