@@ -76,10 +76,11 @@ function HomePage({isAuthenticated}) {
             onSearchChange={handleSearchChange}
           />
         </div>
-
+  {isAuthenticated && ( 
         <Link to="/add-product">
           <button className="btn btn-primary ms-2">Add Product</button>
         </Link>
+        )}
       </div>
       <Outlet />
       {/* <AddEditProduct product={editingProduct} onSave={handleSave} onCancel={handleCancel} /> */}

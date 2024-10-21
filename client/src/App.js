@@ -21,7 +21,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage isAuthenticated={isAuthenticated}  />} />      
-          <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/admin" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/add-product" element={<AddEditProduct />} />
           <Route path="/product/:productId" element={<SingleProductPage />} />
           <Route path="*" element={<NotFoundPage />} />
