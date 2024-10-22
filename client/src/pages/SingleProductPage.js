@@ -6,10 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/common/Spinner";
 import ShareButton from "../components/ShareButton";
 
-
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-function SingleProductPage({isAuthenticated}) {
+function SingleProductPage({ isAuthenticated }) {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
@@ -44,25 +43,34 @@ function SingleProductPage({isAuthenticated}) {
       <div className="product-details">
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
-        <p className ="pt-20">
+        <p className="pt-20">
           <strong>Price: ₹{product.price.toLocaleString()}</strong>
         </p>
         <p>
           <span>Online Price: </span>{" "}
-          <span className="online-price">₹{product.onlinePrice.toLocaleString()} </span>
+          <span className="online-price">
+            ₹{product.onlinePrice.toLocaleString()}{" "}
+          </span>
         </p>
 
-       {isAuthenticated && (
-        <p>
-          <span>Dealer Price: </span>
-          <span className="dealer-price"><strong>₹{product.dealerPrice.toLocaleString()} </strong> </span>
-        </p>
+        {isAuthenticated && (
+          <>
+            <p>
+              <span>Dealer Price: </span>
+              <span className="dealer-price">
+                <strong>₹{product.dealerPrice.toLocaleString()} </strong>{" "}
+              </span>
+            </p>
+            <p>
+              <span>Dealer Name: </span>
+              <span>
+                <strong>{product.dealerName} </strong>{" "}
+              </span>
+            </p>
+          </>
         )}
         <div className="product-buttons">
-
-
-
-        <ShareButton
+          <ShareButton
             title={product.title}
             description={product.description}
             url={productUrl} // Replace with your product URL
