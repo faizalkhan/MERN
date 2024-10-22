@@ -44,7 +44,7 @@ function SingleProductPage({isAuthenticated}) {
       <div className="product-details">
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
-        <p>
+        <p className ="pt-20">
           <strong>Price: ₹{product.price.toLocaleString()}</strong>
         </p>
         <p>
@@ -55,7 +55,7 @@ function SingleProductPage({isAuthenticated}) {
        {isAuthenticated && (
         <p>
           <span>Dealer Price: </span>
-          <span className="dealer-price">₹{product.dealerPrice.toLocaleString()} </span>
+          <span className="dealer-price"><strong>₹{product.dealerPrice.toLocaleString()} </strong> </span>
         </p>
         )}
         <div className="product-buttons">
