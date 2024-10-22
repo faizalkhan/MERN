@@ -30,7 +30,7 @@ function SingleProductPage() {
   if (!product) {
     return <LoadingSpinner />;
   }
-  const productUrl = `${window.location.origin}/products/${product._id}`;
+  const productUrl = `${window.location.origin}/product/${product._id}`;
 
   //const imageSrc = `${API_URL}${product.imageFile}`;
   return (
