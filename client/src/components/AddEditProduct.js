@@ -235,7 +235,7 @@ function AddEditProduct({ onCancel }) {
             className="form-control"
             type="number"
             name="dealerPrice"
-            value={formData.DealerPrice}
+            value={formData.dealerPrice}
             onChange={handleChange}
           />
         </div>
