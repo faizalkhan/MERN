@@ -30,6 +30,11 @@ const productSchema = new mongoose.Schema({
     enum: ['EMI', 'COD', 'PAID'],
     required: [true, 'Payment mode is required']
   },
+  dealerName: {
+    type: String,
+    enum: ['Prime Computers', 'JP Computers', 'FlipCart Computers', 'AK Infotech'],
+    required: [true, 'Payment mode is required']
+  }
 });
 
 const Product = mongoose.model('Product', productSchema);

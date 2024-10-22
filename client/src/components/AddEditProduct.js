@@ -57,6 +57,7 @@ function AddEditProduct({ onCancel }) {
     price: "",
     onlinePrice: "",
     dealerPrice: "",
+    dealerName: "",
     paymentMode : null,
     imageFile: null,
   });
@@ -71,6 +72,7 @@ function AddEditProduct({ onCancel }) {
         price: product.price,
         onlinePrice: product.onlinePrice,
         dealerPrice : product.dealerPrice,
+        dealerName : product.dealerName,
         paymentMode : product.paymentMode,
         imageFile: product.imageFile,
         previewUrl: product.imageFile ? `${product.imageFile}` : null,
@@ -79,6 +81,7 @@ function AddEditProduct({ onCancel }) {
   }, [product]);
 
   const handleChange = (e) => {
+    debugger;
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -107,14 +110,8 @@ function AddEditProduct({ onCancel }) {
     }
   };
 
-  const handlePayment = (e) => {
-    debugger;
-    console.log(e.target.value)
-    setFormData((prevData) => ({
-      ...prevData,
-      paymentMode: e.target.value,
-    }));
-  }
+
+
 
 
   const handleSubmit = async (e) => {
@@ -126,6 +123,7 @@ function AddEditProduct({ onCancel }) {
     formPayload.append("price", formData.price);
     formPayload.append("onlinePrice", formData.onlinePrice);
     formPayload.append("dealerPrice", formData.dealerPrice);
+    formPayload.append("dealerName", formData.dealerName);
     formPayload.append("paymentMode", formData.paymentMode);
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
@@ -241,6 +239,26 @@ function AddEditProduct({ onCancel }) {
         </div>
 
         <div className="mb-3 mt-3">
+          <label className="form-label">Dealer Name:</label>
+
+        
+          <select
+          className="form-control"
+          name="dealerName"
+        value={formData.dealerName}
+        onChange={handleChange}
+        required
+      >
+
+      <option value="">Please select dealer name</option>
+      <option value="Prime Computers">Prime Computers</option>
+       <option value="JP Computers">JP Computers</option>
+        <option value="FlipCart Computers">FlipCart Computers</option>
+        <option value="AK Infotech">AK Infotech</option>
+       </select>
+        </div>
+
+        <div className="mb-3 mt-3">
           <label className="form-label">Image:</label>
 
           {formData.previewUrl && (
@@ -270,7 +288,8 @@ function AddEditProduct({ onCancel }) {
           <select
           className="form-control"
         value={formData.paymentMode}
-        onChange={handlePayment}
+        name = "paymentMode"
+        onChange={handleChange}
         required
       >
       <option value="">Please select mode</option>
