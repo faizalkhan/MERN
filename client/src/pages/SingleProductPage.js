@@ -44,12 +44,12 @@ function SingleProductPage({ isAuthenticated }) {
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
         <p className="pt-20">
-          <strong>Price: ₹{product.price.toLocaleString()}</strong>
+          <strong>Price: ₹{product.price.toLocaleString()}/-</strong>
         </p>
         <p>
           <span>Online Price: </span>{" "}
           <span className="online-price">
-            ₹{product.onlinePrice.toLocaleString()}{" "}
+            ₹{product.onlinePrice.toLocaleString()}/-{" "}
           </span>
         </p>
 
@@ -57,8 +57,8 @@ function SingleProductPage({ isAuthenticated }) {
           <>
             <p>
               <span>Dealer Price: </span>
-              <span className="dealer-price">
-                <strong>₹{product.dealerPrice.toLocaleString()} </strong>{" "}
+              <span>
+                <strong>₹{product.dealerPrice.toLocaleString()}/- </strong>{" "}
               </span>
             </p>
             <p>
