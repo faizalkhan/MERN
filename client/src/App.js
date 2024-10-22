@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<HomePage isAuthenticated={isAuthenticated}  />} />      
           <Route path="/admin" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/add-product" element={<AddEditProduct />} />
-          <Route path="/product/:productId" element={<SingleProductPage />} />
+          <Route path="/product/:productId" element={<SingleProductPage  isAuthenticated={isAuthenticated}/>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

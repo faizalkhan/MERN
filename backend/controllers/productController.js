@@ -13,7 +13,7 @@ cloudinary.config({
 // Create a new product
 const createProduct = async (req, res) => {
   try {
-    const { title, description, price, onlinePrice, paymentMode } = req.body;
+    const { title, description, price, onlinePrice, dealerPrice, paymentMode } = req.body;
     let imageFileUrl = req.file?.filename;
 
     // Upload to Cloudinary if an image is provided
@@ -41,6 +41,7 @@ const createProduct = async (req, res) => {
       price,
       onlinePrice,
       imageFile: imageFileUrl, // Save the image URL
+      dealerPrice,
       paymentMode
     });
 
@@ -55,7 +56,7 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { title, description, price, onlinePrice, paymentMode } = req.body;
+    const { title, description, price, onlinePrice, dealerPrice, paymentMode } = req.body;
     const productId = req.params.id;
     const product = await Product.findById(productId);
 
@@ -68,6 +69,7 @@ const updateProduct = async (req, res) => {
     product.description = description;
     product.price = price;
     product.onlinePrice = onlinePrice;
+    product.dealerPrice = dealerPrice;
     product.paymentMode = paymentMode;
 
     // Upload new image to Cloudinary if a new file is provided

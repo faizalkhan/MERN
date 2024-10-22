@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  dealerPrice: {
+    type: Number,
+    required: true,
+  },
   imageFile: {
     type: String,
     required: true,

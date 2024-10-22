@@ -9,7 +9,7 @@ import ShareButton from "../components/ShareButton";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-function SingleProductPage() {
+function SingleProductPage({isAuthenticated}) {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
@@ -51,6 +51,13 @@ function SingleProductPage() {
           <span>Online Price: </span>{" "}
           <span className="online-price">₹{product.onlinePrice.toLocaleString()} </span>
         </p>
+
+       {isAuthenticated && (
+        <p>
+          <span>Dealer Price: </span>{" "}
+          <span className="dealer-price">₹{product.dealerPrice.toLocaleString()} </span>
+        </p>
+        )}
         <div className="product-buttons">
 
 
