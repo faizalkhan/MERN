@@ -4,6 +4,8 @@ import axios from "axios"; // Import Axios or your preferred HTTP library
 import "../styles/SingleProductPage.css";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/common/Spinner";
+import ShareButton from "../components/ShareButton";
+
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -28,6 +30,7 @@ function SingleProductPage() {
   if (!product) {
     return <LoadingSpinner />;
   }
+  const productUrl = `${window.location.origin}/products/${product._id}`;
 
   //const imageSrc = `${API_URL}${product.imageFile}`;
   return (
@@ -49,6 +52,14 @@ function SingleProductPage() {
           <span className="online-price">₹{product.onlinePrice.toLocaleString()} </span>
         </p>
         <div className="product-buttons">
+
+
+
+        <ShareButton
+            title={product.title}
+            description={product.description}
+            url={productUrl} // Replace with your product URL
+          />
           {/* <button className="buy-now">Buy Now</button>
           <button className="add-to-cart">Add to Cart</button> */}
         </div>
