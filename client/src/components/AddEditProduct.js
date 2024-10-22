@@ -125,7 +125,7 @@ function AddEditProduct({ onCancel }) {
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
     formPayload.append("onlinePrice", formData.onlinePrice);
-    formPayload.append("dealerePrice", formData.dealerePrice);
+    formPayload.append("dealerePrice", formData.dealerPrice);
     formPayload.append("paymentMode", formData.paymentMode);
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
