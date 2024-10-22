@@ -56,6 +56,7 @@ function AddEditProduct({ onCancel }) {
     description: "",
     price: "",
     onlinePrice: "",
+    dealerPrice: "",
     paymentMode : null,
     imageFile: null,
   });
@@ -69,6 +70,7 @@ function AddEditProduct({ onCancel }) {
         description: product.description,
         price: product.price,
         onlinePrice: product.onlinePrice,
+        dealerPrice : product.dealerPrice,
         paymentMode : product.paymentMode,
         imageFile: product.imageFile,
         previewUrl: product.imageFile ? `${product.imageFile}` : null,
@@ -123,6 +125,7 @@ function AddEditProduct({ onCancel }) {
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
     formPayload.append("onlinePrice", formData.onlinePrice);
+    formPayload.append("dealerePrice", formData.dealerePrice);
     formPayload.append("paymentMode", formData.paymentMode);
     if (formData.imageFile) {
       formPayload.append("imageFile", formData.imageFile);
@@ -133,8 +136,9 @@ function AddEditProduct({ onCancel }) {
       !formData.onlinePrice ||
       !formData.title ||
       !formData.description ||
-      !formData.paymentMode
-    ) {
+      !formData.paymentMode ||
+      !formData.dealerPrice
+      ) {
       return toast.error(
         "TItle, Description, Price, Online Price and payment Mode are required.",
       );
@@ -149,6 +153,7 @@ function AddEditProduct({ onCancel }) {
         description: "",
         price: "",
         onlinePrice: "",
+        dealerPrice : "",
         imageFile: null,
         paymentMode: "",
         previewUrl: null,
@@ -212,13 +217,25 @@ function AddEditProduct({ onCancel }) {
           />
         </div>
 
-        <div className="mb-3 mt-3">
+         <div className="mb-3 mt-3">
           <label className="form-label">Online Price:</label>
           <input
             className="form-control"
             type="number"
             name="onlinePrice"
             value={formData.onlinePrice}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="mb-3 mt-3">
+          <label className="form-label">Dealer Price:</label>
+          <input
+            className="form-control"
+            type="number"
+            name="dealerPrice"
+            value={formData.DealerPrice}
             onChange={handleChange}
           />
         </div>
