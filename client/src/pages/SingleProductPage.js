@@ -54,7 +54,7 @@ function SingleProductPage({isAuthenticated}) {
 
        {isAuthenticated && (
         <p>
-          <span>Dealer Price: </span>{" "}
+          <span>Dealer Price: </span>
           <span className="dealer-price">₹{product.dealerPrice.toLocaleString()} </span>
         </p>
         )}
