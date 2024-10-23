@@ -26,6 +26,16 @@ function SingleProductPage({ isAuthenticated }) {
     }
   };
 
+  const handleBackClick = () => {
+    const isInternalReferrer = document.referrer && document.referrer.includes(window.location.origin);
+    if (isInternalReferrer) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
+
   if (!product) {
     return <LoadingSpinner />;
   }
@@ -34,7 +44,7 @@ function SingleProductPage({ isAuthenticated }) {
   //const imageSrc = `${API_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={handleBackClick}>
         &larr; Back
       </button>
       <div className="product-image">
