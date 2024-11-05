@@ -11,19 +11,19 @@ const PaymentModeFilter = ({
   return (
     <>
     <div style={{marginBottom: "20px", marginTop: "20px"  }}>  
-      <div class="form-check form-check-inline">
+      <div className="form-check form-check-inline">
         <input
           className="form-check-input"
           type="checkbox"
           onChange={() => onFilterChange("EMI")}
         />
 
-        <label class="form-check-label" for="inlineCheckbox1">
+        <label className="form-check-label" htmlFor="inlineCheckbox1">
           EMI
         </label>
       </div>
 
-      <div class="form-check form-check-inline">
+      <div className="form-check form-check-inline">
         <input
           className="form-check-input"
           type="checkbox"
@@ -34,7 +34,7 @@ const PaymentModeFilter = ({
         </label>
       </div>
 
-      <div class="form-check form-check-inline">
+      <div className="form-check form-check-inline">
         <input
           className="form-check-input"
           type="checkbox"

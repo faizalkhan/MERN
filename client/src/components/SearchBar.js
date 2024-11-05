@@ -7,7 +7,7 @@ const SearchBar = ({ searchQuery, onSearchChange }) => {
       type="text"
       placeholder="Search products..."
       value={searchQuery}
-      onChange={(e) => onSearchChange(e.target.value)}
+      onChange={(e) => onSearchChange(e)}
     />
   );
 };

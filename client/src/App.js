@@ -6,7 +6,7 @@ import SingleProductPage from "./pages/SingleProductPage";
 import "./styles/App.css";
 import AddEditProduct from "./components/AddEditProduct.js";
 import LoginPage from "./pages/LoginPage.js"
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

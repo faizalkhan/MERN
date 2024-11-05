@@ -19,9 +19,9 @@ function ProductList({ products, onDelete, isAuthenticated}) {
 
   return (
     <div className="product-list">
-      {products.map((product) => (
+      {products.map((product, index) => (
         <ProductCard
-          key={product._id}
+          key={`${product.id}-${index}`}         
           product={product}
           onEdit={handleEdit} // Ensure onEdit is a function that handles editing
           onDelete={onDelete}

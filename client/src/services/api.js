@@ -12,9 +12,18 @@ const api = axios.create({
 
 // CRUD operations
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (page, limit, filters = {}) => {
   try {
-    const response = await api.get("api/products");
+    const queryParams = new URLSearchParams({
+      page,
+      limit,
+      search: filters.search || "", // Search query, default to empty
+      filterEMI: filters.filterEMI,
+      filterCOD: filters.filterCOD,
+      filterPAID: filters.filterPAID,
+    });
+    const response = await api.get(`api/products?${queryParams.toString()}`);
+
     return response.data;
   } catch (error) {
     throw error;

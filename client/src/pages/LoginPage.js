@@ -31,10 +31,10 @@ const LoginPage = ({ setIsAuthenticated }) => {
     <div>
   
       <form onSubmit={handleLogin}>
-      <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <div className="mb-3">
+      <label for="exampleInputEmail1" className="form-label">Email address</label>
         <input
-         class="form-control"
+         className="form-control"
           type="email"
           placeholder="Email"
           value={email}
@@ -42,10 +42,10 @@ const LoginPage = ({ setIsAuthenticated }) => {
           required
         />
         </div>
-        <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Password </label>
+        <div className="mb-3">
+        <label for="exampleInputEmail1" className="form-label">Password </label>
         <input
-          class="form-control"
+          className="form-control"
           type="password"
           placeholder="Password"
           value={password}
@@ -53,7 +53,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
           required
         />
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
       {error && <p>{error}</p>}
     </div>
