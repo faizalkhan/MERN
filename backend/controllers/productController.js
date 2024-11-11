@@ -129,8 +129,8 @@ const getProducts = async (req, res) => {
 
     if (search) {
       query.$or = [
-        { title: { $regex: `^${search}$`, $options: "i" } }, // Assuming 'name' is the field you're searching in
-        { description: { $regex: `^${search}$`, $options: "i" } }, // Include any other fields you want to search
+        { title: { $regex: search, $options: "i" } }, 
+        { description: { $regex: search, $options: "i" } },
       ];
     }
 

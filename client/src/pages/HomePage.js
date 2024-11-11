@@ -37,31 +37,28 @@ function HomePage({ isAuthenticated }) {
   
 
 
-  const debouncedSearch = useRef(debounce(() => {
-   
-    resetAndFetch();
+  const debouncedSearch = useRef(debounce((query) => {
+    setProducts([]);
+    fetchProducts(query);
   }, 1000)).current; // Keep a reference to the debounced function
 
 
 
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (query = searchQuery) => {
     if (loading || searchLoading) return;
     setLoading(true);
 
-    try {
-   
+    try {   
       const limit = 10;
       const filters = {
-        search: searchQuery || '',
+        search: searchQuery || query || '',
         filterEMI: filterEMI,
         filterCOD :filterCOD, 
         filterPAID : filterPAID
       };
   
-    console.log("fil", filters.filterEMI);
-
-      const { products: newProducts, total } = await getAllProducts(
+     const { products: newProducts, total } = await getAllProducts(
         page,
         limit,
         filters
@@ -112,25 +109,19 @@ function HomePage({ isAuthenticated }) {
 
 
 
-  // const handleSearchChange = (e) => {
-
-  //  const query = e.target.value;
-
-  //   console.log("Search query:", query);
-  //   setSearchQuery(query);
+  const handleSearchChange = (e) => {
+   const query = e.target.value;
+    setSearchQuery(query);
     
-  //   if (query.length >= 2 || query.length === 0)
-  //   {
-
-  //     setPage(1);
-  //     debouncedSearch();
-
-  //     console.log("Search Filters updated - Search:", searchQuery);
-  //   }
+    if (query.length >= 1 || query.length === 0)
+    {
+      setPage(1);
+      debouncedSearch(query);
+    }
    
 
     
-  // };
+  };
   
 
   const resetAndFetch = () => {
@@ -140,15 +131,10 @@ function HomePage({ isAuthenticated }) {
   };
   useEffect(() => {
 
-
-    console.log("useffect 1");
-    if (isFirstFetch.current) {
-       fetchProducts(); // Call the function only once
-      isFirstFetch.current = false; // Set it to false after initial fetch
-    }
-
-
-   
+     if (isFirstFetch.current) {
+       fetchProducts(); 
+      isFirstFetch.current = false; 
+    }   
   }, []);
 
   useEffect(() => {
@@ -170,10 +156,12 @@ function HomePage({ isAuthenticated }) {
       <h1>REACT </h1>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div className="flex-grow-1">
-          {/* <SearchBar
+
+          <SearchBar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
-          /> */}
+          />
+
         </div>
 
         {isAuthenticated && (
