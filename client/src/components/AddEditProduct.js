@@ -54,6 +54,7 @@ function AddEditProduct({ onCancel }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    brand : "",
     price: "",
     onlinePrice: "",
     dealerPrice: "",
@@ -69,6 +70,7 @@ function AddEditProduct({ onCancel }) {
       setFormData({
         title: product.title,
         description: product.description,
+        description: product.brand,
         price: product.price,
         onlinePrice: product.onlinePrice,
         dealerPrice : product.dealerPrice,
@@ -121,6 +123,7 @@ function AddEditProduct({ onCancel }) {
     formPayload.append("title", formData.title);
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
+    formPayload.append("brand", formData.brand);
     formPayload.append("onlinePrice", formData.onlinePrice);
     formPayload.append("dealerPrice", formData.dealerPrice);
     formPayload.append("dealerName", formData.dealerName);
@@ -134,6 +137,7 @@ function AddEditProduct({ onCancel }) {
       !formData.onlinePrice ||
       !formData.title ||
       !formData.description ||
+      !formData.brand ||
       !formData.paymentMode ||
       !formData.dealerPrice
       ) {
@@ -149,6 +153,7 @@ function AddEditProduct({ onCancel }) {
       setFormData({
         title: "",
         description: "",
+        brand: "",
         price: "",
         onlinePrice: "",
         dealerPrice : "",
@@ -205,6 +210,27 @@ function AddEditProduct({ onCancel }) {
         </div>
 
         <div className="mb-3 mt-3">
+          <label className="form-label">Dealer Name:</label>
+
+        
+          <select
+          className="form-control"
+          name="brand"
+        value={formData.brand}
+        onChange={handleChange}
+        required
+      >
+
+ 
+      <option value="">Please select the brand</option>
+      <option value="Dell">Dell</option>
+       <option value="HP">HP</option>
+        <option value="Lenovo">Lenovo</option>
+       </select>
+        </div>
+
+       
+        <div className="mb-3 mt-3">
           <label className="form-label">Price: </label>
           <input
             className="form-control"
@@ -238,8 +264,12 @@ function AddEditProduct({ onCancel }) {
           />
         </div>
 
+   
+
+
+
         <div className="mb-3 mt-3">
-          <label className="form-label">Dealer Name:</label>
+          <label className="form-label">Brand :</label>
 
         
           <select
@@ -257,6 +287,9 @@ function AddEditProduct({ onCancel }) {
         <option value="AK Infotech">AK Infotech</option>
        </select>
         </div>
+
+
+
 
         <div className="mb-3 mt-3">
           <label className="form-label">Image:</label>

@@ -16,6 +16,7 @@ const createProduct = async (req, res) => {
     const {
       title,
       description,
+      brand,
       price,
       onlinePrice,
       dealerPrice,
@@ -46,6 +47,7 @@ const createProduct = async (req, res) => {
     const newProduct = new Product({
       title,
       description,
+      brand,
       price,
       onlinePrice,
       imageFile: imageFileUrl, // Save the image URL
@@ -68,6 +70,7 @@ const updateProduct = async (req, res) => {
     const {
       title,
       description,
+      brand,
       price,
       onlinePrice,
       dealerPrice,
@@ -84,6 +87,7 @@ const updateProduct = async (req, res) => {
     // Update the product fields
     product.title = title;
     product.description = description;
+    product.brand = brand; 
     product.price = price;
     product.onlinePrice = onlinePrice;
     product.dealerPrice = dealerPrice;

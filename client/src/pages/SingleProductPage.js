@@ -53,6 +53,17 @@ function SingleProductPage({ isAuthenticated }) {
       <div className="product-details">
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
+
+
+        <p>
+          <span>Brand: </span>{" "}
+          <span>
+          <strong>{product.brand} </strong>
+          </span>
+        </p>
+
+
+
         <p className="pt-20">
           <strong>Price: ₹{product.price.toLocaleString()}/-</strong>
         </p>

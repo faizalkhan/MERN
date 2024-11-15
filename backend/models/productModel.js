@@ -9,6 +9,11 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  brand: {
+    type: String,
+    enum: ['Dell', 'HP', 'Lenovo'],
+    required: [true, 'brand is required']
+  },
   price: {
     type: Number,
     required: true,
