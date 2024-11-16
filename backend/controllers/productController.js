@@ -155,10 +155,11 @@ const getProducts = async (req, res) => {
     const selectedBrands = [];
     if (filterDell === "true") selectedBrands.push("Dell");
     if (filterHp === "true") selectedBrands.push("HP");
-    if (filterLenovo === "true") selectedBrands.push("LENOVO");
+    if (filterLenovo === "true") selectedBrands.push("Lenovo");
     if (selectedBrands.length > 0) {
       query.brand = { $in: selectedBrands };
     }
+
     const total = await Product.countDocuments(query);
     const products = await Product.find(query).skip(skip).limit(limit);
 

@@ -70,7 +70,7 @@ function AddEditProduct({ onCancel }) {
       setFormData({
         title: product.title,
         description: product.description,
-        description: product.brand,
+        brand: product.brand,
         price: product.price,
         onlinePrice: product.onlinePrice,
         dealerPrice : product.dealerPrice,
@@ -210,7 +210,7 @@ function AddEditProduct({ onCancel }) {
         </div>
 
         <div className="mb-3 mt-3">
-          <label className="form-label">Dealer Name:</label>
+          <label className="form-label">Brand </label>
 
         
           <select

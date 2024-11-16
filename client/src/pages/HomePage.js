@@ -43,6 +43,7 @@ function HomePage({ isAuthenticated }) {
   ).current; // Keep a reference to the debounced function
 
   const fetchProducts = async (query = searchQuery) => {
+
     if (loading || searchLoading) return;
     setLoading(true);
 
@@ -180,7 +181,16 @@ function HomePage({ isAuthenticated }) {
                     isAuthenticated={isAuthenticated}
                   />
                 ) : (
-                  !loading && <p>No results found for "{searchQuery}"</p>
+                  !loading && 
+                  (
+                    <p>
+                      {filterLENOVO
+                        ? "No products in Lenovo."
+                        : searchQuery
+                        ? `No results found for "${searchQuery}".`
+                        : "No products available."}
+                    </p>
+                  )                  
                 )}
               </InfiniteScroll>
             )}
