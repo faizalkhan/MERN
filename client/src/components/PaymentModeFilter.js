@@ -3,15 +3,59 @@ import React from "react";
 import "../styles/PaymentModeFilter.css";
 
 const PaymentModeFilter = ({
-  filterEMI,
-  filterCOD,
-  filterPAID,
-  onFilterChange,
+   onFilterChange,
 }) => {
   return (
     <>
     <div style={{marginBottom: "20px", marginTop: "20px"  }}>  
-      <div className="form-check form-check-inline">
+    
+     <h2>Top Brands </h2>
+
+      <div className="form-check text-start">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          onChange={() => onFilterChange("DELL")}
+        />
+        <label className="form-check-label" htmlFor="filterEMI">
+          Dell
+        </label>
+      </div>
+
+      <div className="form-check text-start">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          onChange={() => onFilterChange("HP")}
+        />
+        <label className="form-check-label" htmlFor="filterEMI">
+          HP
+        </label>
+      </div>
+
+
+      
+      <div className="form-check text-start">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          onChange={() => onFilterChange("LENOVO")}
+        />
+        <label className="form-check-label" htmlFor="filterEMI">
+         Lenovo
+        </label>
+      </div>
+
+
+
+
+      {/* <h2> Payemnt Mode </h2> */}
+
+
+
+
+{/* 
+      <div className="form-check text-start">
         <input
           className="form-check-input"
           type="checkbox"
@@ -23,18 +67,7 @@ const PaymentModeFilter = ({
         </label>
       </div>
 
-      <div className="form-check form-check-inline">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          onChange={() => onFilterChange("COD")}
-        />
-        <label className="form-check-label" htmlFor="filterEMI">
-          COD
-        </label>
-      </div>
-
-      <div className="form-check form-check-inline">
+       <div className="form-check text-start">
         <input
           className="form-check-input"
           type="checkbox"
@@ -44,6 +77,9 @@ const PaymentModeFilter = ({
           PAID
         </label>
       </div>
+ */}
+
+
       </div>
     </>
   );

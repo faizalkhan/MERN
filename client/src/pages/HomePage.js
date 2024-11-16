@@ -24,9 +24,9 @@ function HomePage({ isAuthenticated }) {
   const [loading, setLoading] = useState(false);
 
   // States for payment mode filters
-  const [filterEMI, setFilterEMI] = useState(false);
-  const [filterCOD, setFilterCOD] = useState(false);
-  const [filterPAID, setFilterPAID] = useState(false);
+  const [filterDELL, setFilterDELL] = useState(false);
+  const [filterHP, setFilterHP] = useState(false);
+  const [filterLENOVO, setFilterLENOVO] = useState(false);
 
   const [page, setPage] = useState(1);
   const [totalProduct, setTotalProduct] = useState(0);
@@ -34,37 +34,32 @@ function HomePage({ isAuthenticated }) {
   const isFirstFetch = useRef(true);
 
   const [searchLoading, setSearchLoading] = useState(false);
-  
 
-
-  const debouncedSearch = useRef(debounce((query) => {
-    setProducts([]);
-    fetchProducts(query);
-  }, 1000)).current; // Keep a reference to the debounced function
-
-
-
+  const debouncedSearch = useRef(
+    debounce((query) => {
+      setProducts([]);
+      fetchProducts(query);
+    }, 1000)
+  ).current; // Keep a reference to the debounced function
 
   const fetchProducts = async (query = searchQuery) => {
     if (loading || searchLoading) return;
     setLoading(true);
 
-    try {   
+    try {
       const limit = 10;
       const filters = {
-        search: searchQuery || query || '',
-        filterEMI: filterEMI,
-        filterCOD :filterCOD, 
-        filterPAID : filterPAID
+        search: searchQuery || query || "",
+        filterDell: filterDELL,
+        filterHP: filterHP,
+        filterLenovo: filterLENOVO,
       };
-  
-     const { products: newProducts, total } = await getAllProducts(
+
+      const { products: newProducts, total } = await getAllProducts(
         page,
         limit,
         filters
       );
-
-
 
       setProducts((prev) => [...prev, ...newProducts]);
       setTotalProduct(total);
@@ -95,116 +90,103 @@ function HomePage({ isAuthenticated }) {
     }
   };
 
- 
-
   const handleFilterChange = (mode) => {
+    debugger;
     isFirstFetch.current = true;
-    if (mode === "EMI")  setFilterEMI((prev) => !prev)
-    if (mode === "COD") setFilterCOD((prev) => !prev);
-    if (mode === "PAID") setFilterPAID((prev) => !prev);
-    setPage(1);  
+    if (mode === "DELL") setFilterDELL((prev) => !prev);
+    if (mode === "HP") setFilterHP((prev) => !prev);
+    if (mode === "LENOVO") setFilterLENOVO((prev) => !prev);
+    setPage(1);
   };
 
-
-
-
-
   const handleSearchChange = (e) => {
-   const query = e.target.value;
+    const query = e.target.value;
     setSearchQuery(query);
-    
-    if (query.length >= 1 || query.length === 0)
-    {
+
+    if (query.length >= 1 || query.length === 0) {
       setPage(1);
       debouncedSearch(query);
     }
-   
-
-    
   };
-  
 
   const resetAndFetch = () => {
     setProducts([]);
     setPage(1);
-
   };
   useEffect(() => {
-
-     if (isFirstFetch.current) {
-       fetchProducts(); 
-      isFirstFetch.current = false; 
-    }   
+    if (isFirstFetch.current) {
+      fetchProducts();
+      isFirstFetch.current = false;
+    }
   }, []);
 
   useEffect(() => {
-  
     if (!isFirstFetch.current) return;
 
-  
-  setProducts([]); // Reset the product list when filters change
-  setPage(1); // Reset the page to 1 when filters change
-  fetchProducts();
-
-
-
-  }, [filterEMI, filterCOD, filterPAID])
+    setProducts([]); // Reset the product list when filters change
+    setPage(1); // Reset the page to 1 when filters change
+    fetchProducts();
+  }, [filterDELL, filterHP, filterLENOVO]);
 
   return (
     <Container>
-    <div className="home-page">
-      <h1>REACT </h1>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div className="flex-grow-1">
+      <div className="home-page">
+        <h1>REACT </h1>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div className="flex-grow-1">
+            <SearchBar
+              searchQuery={searchQuery}
+              onSearchChange={handleSearchChange}
+            />
+          </div>
 
-          <SearchBar
-            searchQuery={searchQuery}
-            onSearchChange={handleSearchChange}
-          />
-
+          {isAuthenticated && (
+            <Link to="/add-product">
+              <button className="btn btn-primary ms-2">Add Product</button>
+            </Link>
+          )}
         </div>
 
-        {isAuthenticated && (
-          <Link to="/add-product">
-            <button className="btn btn-primary ms-2">Add Product</button>
-          </Link>
-        )}
+        <div className="row">
+          <div className="col-md-2">
+            <PaymentModeFilter
+              filterDELL={filterDELL}
+              filterHP={filterHP}
+              filterLENOVO={filterLENOVO}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
+
+          <div className="col-md-10">
+            <Outlet />
+
+            {loading && products.length === 0 ? (
+              <LoadingSpinner />
+            ) : (
+              <InfiniteScroll
+                dataLength={products.length}
+                next={() => fetchProducts(searchQuery)}
+                hasMore={products.length < totalProduct}
+                scrollThreshold={0.9}
+                loader={
+                  searchLoading ? <LoadingSpinner /> : <h4>Loading...</h4>
+                } // Show spinner only if search is loading
+              >
+                {products.length > 0 ? (
+                  <ProductList
+                    products={products}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    isAuthenticated={isAuthenticated}
+                  />
+                ) : (
+                  !loading && <p>No results found for "{searchQuery}"</p>
+                )}
+              </InfiniteScroll>
+            )}
+          </div>
+        </div>
       </div>
-
-      <PaymentModeFilter
-          filterEMI={filterEMI}
-          filterCOD={filterCOD}
-          filterPAID={filterPAID}
-          onFilterChange={handleFilterChange}
-        />  
-          
-           
-
-      <Outlet />
- 
-      {loading && products.length === 0 ? (
-        <LoadingSpinner />
-      ) : (
-        <InfiniteScroll
-          dataLength={products.length}
-          next={() => fetchProducts(searchQuery)}
-          hasMore={products.length < totalProduct}
-          scrollThreshold={0.9} 
-          loader={searchLoading ? <LoadingSpinner /> : <h4>Loading...</h4>} // Show spinner only if search is loading
-        >
-          {products.length > 0 ? (
-          <ProductList
-            products={products}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            isAuthenticated={isAuthenticated}
-          />
-        ) : (
-          !loading && <p>No results found for "{searchQuery}"</p>
-        )}
-        </InfiniteScroll>
-      )}
-    </div>
     </Container>
   );
 }

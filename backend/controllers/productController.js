@@ -87,7 +87,7 @@ const updateProduct = async (req, res) => {
     // Update the product fields
     product.title = title;
     product.description = description;
-    product.brand = brand; 
+    product.brand = brand;
     product.price = price;
     product.onlinePrice = onlinePrice;
     product.dealerPrice = dealerPrice;
@@ -127,26 +127,38 @@ const getProducts = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const { search, filterEMI, filterCOD, filterPAID } = req.query;
+    const { search, filterDell, filterHp, filterLenovo, ...otherFilters } =
+      req.query;
+    const allowedFilters = ["filterDell", "filterHp", "filterLenovo"];
+    const allowedQueryParams = ["page", "limit", "search", ...allowedFilters];
+
+    const invalidKeys = Object.keys(otherFilters).filter(
+      (key) => !allowedQueryParams.includes(key)
+    );
+
+    if (invalidKeys.length > 0) {
+      return res.status(400).json({
+        error: `Invalid filter keys: ${invalidKeys.join(
+          ", "
+        )}. Allowed filters are: ${allowedFilters.join(", ")}.`,
+      });
+    }
 
     let query = {};
 
     if (search) {
       query.$or = [
-        { title: { $regex: search, $options: "i" } }, 
+        { title: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
       ];
     }
-
-    const selectedModes = [];
-    if (filterEMI === "true") selectedModes.push("EMI");
-    if (filterCOD === "true") selectedModes.push("COD");
-    if (filterPAID === "true") selectedModes.push("PAID");
-
-    if (selectedModes.length > 0) {
-      query.paymentMode = { $in: selectedModes };
+    const selectedBrands = [];
+    if (filterDell === "true") selectedBrands.push("Dell");
+    if (filterHp === "true") selectedBrands.push("HP");
+    if (filterLenovo === "true") selectedBrands.push("LENOVO");
+    if (selectedBrands.length > 0) {
+      query.brand = { $in: selectedBrands };
     }
-
     const total = await Product.countDocuments(query);
     const products = await Product.find(query).skip(skip).limit(limit);
 

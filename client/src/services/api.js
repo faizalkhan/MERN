@@ -13,14 +13,16 @@ const api = axios.create({
 // CRUD operations
 
 export const getAllProducts = async (page, limit, filters = {}) => {
+
+debugger;
   try {
     const queryParams = new URLSearchParams({
       page,
       limit,
       search: filters.search || "", // Search query, default to empty
-      filterEMI: filters.filterEMI,
-      filterCOD: filters.filterCOD,
-      filterPAID: filters.filterPAID,
+      filterDell: filters.filterDell,
+      filterHp: filters.filterHP,
+      filterLenovo: filters.filterLenovo,
     });
     const response = await api.get(`api/products?${queryParams.toString()}`);
 

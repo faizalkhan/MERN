@@ -1,4 +1,21 @@
 label{
     font-size: 18x;
     font-weight: bold;
+    color:#212529;
+}
+
+.form-check
+{
+    margin-bottom: 30px !important;
+}
+
+h2
+{
+    color: #6b884a !important;
+    margin-bottom: 35px !important;
+    text-align: left;
+    padding-bottom: 20px;
+    font-size: 1.5rem !important;
+    border-bottom: solid 1px #cccccc;
+
 }
