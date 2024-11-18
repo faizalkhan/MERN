@@ -22,49 +22,46 @@ function HomePage({ isAuthenticated }) {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // States for payment mode filters
-  const [filterDELL, setFilterDELL] = useState(false);
-  const [filterHP, setFilterHP] = useState(false);
-  const [filterLENOVO, setFilterLENOVO] = useState(false);
+  const [filters, setFilters] = useState({
+    DELL: false,
+    HP: false,
+    LENOVO: false,
+    priceRange: null,
+  });
 
   const [page, setPage] = useState(1);
   const [totalProduct, setTotalProduct] = useState(0);
-
   const isFirstFetch = useRef(true);
-
   const [searchLoading, setSearchLoading] = useState(false);
-
   const debouncedSearch = useRef(
     debounce((query) => {
       setProducts([]);
       fetchProducts(query);
     }, 1000)
-  ).current; // Keep a reference to the debounced function
+  ).current;
 
   const fetchProducts = async (query = searchQuery) => {
-
     if (loading || searchLoading) return;
     setLoading(true);
 
     try {
       const limit = 10;
-      const filters = {
+      const { DELL, HP, LENOVO, priceRange } = filters;
+      const apiFilters = {
         search: searchQuery || query || "",
-        filterDell: filterDELL,
-        filterHP: filterHP,
-        filterLenovo: filterLENOVO,
+        filterDell: DELL,
+        filterHP: HP,
+        filterLenovo: LENOVO,
+        priceRange: priceRange,
       };
 
       const { products: newProducts, total } = await getAllProducts(
         page,
         limit,
-        filters
+        apiFilters
       );
-
       setProducts((prev) => [...prev, ...newProducts]);
       setTotalProduct(total);
-
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -92,11 +89,37 @@ function HomePage({ isAuthenticated }) {
   };
 
   const handleFilterChange = (mode) => {
-    debugger;
     isFirstFetch.current = true;
-    if (mode === "DELL") setFilterDELL((prev) => !prev);
-    if (mode === "HP") setFilterHP((prev) => !prev);
-    if (mode === "LENOVO") setFilterLENOVO((prev) => !prev);
+    if (["DELL", "HP", "LENOVO"].includes(mode)) {
+      setFilters((prev) => ({
+        ...prev,
+        [mode]: !prev[mode],
+      }));
+    }
+
+    const priceRanges = {
+      under15000: "under15000",
+      "16000to20000": "16000to20000",
+      "25000to30000": "25000to30000",
+      "35000to40000": "35000to40000",
+      "45000to50000": "45000to50000",
+      above50000: "above50000",
+    };
+
+    if (priceRanges[mode]) {
+      setFilters((prev) => ({
+        ...prev,
+        priceRange: priceRanges[mode],
+      }));
+    } else {
+      setFilters((prev) => {
+        return {
+          ...prev,
+          priceRange: "",
+        };
+      });
+    }
+
     setPage(1);
   };
 
@@ -114,6 +137,7 @@ function HomePage({ isAuthenticated }) {
     setProducts([]);
     setPage(1);
   };
+
   useEffect(() => {
     if (isFirstFetch.current) {
       fetchProducts();
@@ -123,11 +147,10 @@ function HomePage({ isAuthenticated }) {
 
   useEffect(() => {
     if (!isFirstFetch.current) return;
-
-    setProducts([]); // Reset the product list when filters change
-    setPage(1); // Reset the page to 1 when filters change
+    setProducts([]);
+    setPage(1);
     fetchProducts();
-  }, [filterDELL, filterHP, filterLENOVO]);
+  }, [filters]);
 
   return (
     <Container>
@@ -151,9 +174,7 @@ function HomePage({ isAuthenticated }) {
         <div className="row">
           <div className="col-md-2">
             <PaymentModeFilter
-              filterDELL={filterDELL}
-              filterHP={filterHP}
-              filterLENOVO={filterLENOVO}
+              filters={filters}
               onFilterChange={handleFilterChange}
             />
           </div>
@@ -181,16 +202,15 @@ function HomePage({ isAuthenticated }) {
                     isAuthenticated={isAuthenticated}
                   />
                 ) : (
-                  !loading && 
-                  (
+                  !loading && (
                     <p>
-                      {filterLENOVO
+                      {filters.LENOVO
                         ? "No products in Lenovo."
                         : searchQuery
-                        ? `No results found for "${searchQuery}".`
-                        : "No products available."}
+                          ? `No results found for "${searchQuery}".`
+                          : "No products available."}
                     </p>
-                  )                  
+                  )
                 )}
               </InfiniteScroll>
             )}

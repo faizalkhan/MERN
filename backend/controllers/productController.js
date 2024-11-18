@@ -127,9 +127,9 @@ const getProducts = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const { search, filterDell, filterHp, filterLenovo, ...otherFilters } =
+    const { search, filterDell, filterHp, filterLenovo, priceRange, ...otherFilters } =
       req.query;
-    const allowedFilters = ["filterDell", "filterHp", "filterLenovo"];
+    const allowedFilters = ["filterDell", "filterHp", "filterLenovo", "priceRange"];
     const allowedQueryParams = ["page", "limit", "search", ...allowedFilters];
 
     const invalidKeys = Object.keys(otherFilters).filter(
@@ -159,6 +159,32 @@ const getProducts = async (req, res) => {
     if (selectedBrands.length > 0) {
       query.brand = { $in: selectedBrands };
     }
+
+ // Price range filter
+ if (priceRange) {
+  switch (priceRange) {
+    case "under15000":
+      query.price = { $lt: 15000 };
+      break;
+    case "16000to20000":
+      query.price = { $gte: 16000, $lte: 20000 };
+      break;
+    case "25000to30000":
+      query.price = { $gte: 25000, $lte: 30000 };
+      break;
+    case "35000to40000":
+      query.price = { $gte: 35000, $lte: 40000 };
+      break;
+    case "45000to50000":
+      query.price = { $gte: 45000, $lte: 50000 };
+      break;
+    case "above50000":
+      query.price = { $gt: 50000 };
+      break;
+    default:
+      break;
+  }
+}
 
     const total = await Product.countDocuments(query);
     const products = await Product.find(query).skip(skip).limit(limit);

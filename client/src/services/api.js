@@ -23,6 +23,7 @@ debugger;
       filterDell: filters.filterDell,
       filterHp: filters.filterHP,
       filterLenovo: filters.filterLenovo,
+      priceRange : filters.priceRange
     });
     const response = await api.get(`api/products?${queryParams.toString()}`);
 
