@@ -155,8 +155,7 @@ function HomePage({ isAuthenticated }) {
   return (
     <Container>
       <div className="home-page">
-        <h1>REACT </h1>
-        <div className="d-flex justify-content-between align-items-center mb-3">
+         <div className="d-flex justify-content-between align-items-center mb-3">
           <div className="flex-grow-1">
             <SearchBar
               searchQuery={searchQuery}
