@@ -54,12 +54,13 @@ function AddEditProduct({ onCancel }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    brand : "",
+    brand: "",
+    availableStatus: false,
     price: "",
     onlinePrice: "",
     dealerPrice: "",
     dealerName: "",
-    paymentMode : null,
+    paymentMode: null,
     imageFile: null,
   });
   const fileInputRef = useRef(null);
@@ -71,11 +72,12 @@ function AddEditProduct({ onCancel }) {
         title: product.title,
         description: product.description,
         brand: product.brand,
+        availableStatus: product.availableStatus,
         price: product.price,
         onlinePrice: product.onlinePrice,
-        dealerPrice : product.dealerPrice,
-        dealerName : product.dealerName,
-        paymentMode : product.paymentMode,
+        dealerPrice: product.dealerPrice,
+        dealerName: product.dealerName,
+        paymentMode: product.paymentMode,
         imageFile: product.imageFile,
         previewUrl: product.imageFile ? `${product.imageFile}` : null,
       });
@@ -83,11 +85,12 @@ function AddEditProduct({ onCancel }) {
   }, [product]);
 
   const handleChange = (e) => {
-    debugger;
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    console.log(e.target.checked);
+
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -112,17 +115,13 @@ function AddEditProduct({ onCancel }) {
     }
   };
 
-
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  debugger;
     const formPayload = new FormData();
     formPayload.append("title", formData.title);
     formPayload.append("description", formData.description);
     formPayload.append("price", formData.price);
+    formPayload.append("availableStatus", formData.availableStatus);
     formPayload.append("brand", formData.brand);
     formPayload.append("onlinePrice", formData.onlinePrice);
     formPayload.append("dealerPrice", formData.dealerPrice);
@@ -140,9 +139,9 @@ function AddEditProduct({ onCancel }) {
       !formData.brand ||
       !formData.paymentMode ||
       !formData.dealerPrice
-      ) {
+    ) {
       return toast.error(
-        "TItle, Description, Price, Online Price and payment Mode are required.",
+        "TItle, Description, Price, Online Price and payment Mode are required."
       );
     }
     setEditingProduct(formPayload);
@@ -154,9 +153,10 @@ function AddEditProduct({ onCancel }) {
         title: "",
         description: "",
         brand: "",
+        availableStatus: false,
         price: "",
         onlinePrice: "",
-        dealerPrice : "",
+        dealerPrice: "",
         imageFile: null,
         paymentMode: "",
         previewUrl: null,
@@ -185,6 +185,20 @@ function AddEditProduct({ onCancel }) {
       <h2>{product ? "Edit Product" : "Add Product"}</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3 mt-3">
+          <label className="form-check-label float-start">
+            Stock available status{" "}
+          </label>
+
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="availableStatus"
+            checked={formData.availableStatus}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-3 mt-3">
           <label for="email" className="form-label">
             {" "}
             Title:
@@ -212,24 +226,20 @@ function AddEditProduct({ onCancel }) {
         <div className="mb-3 mt-3">
           <label className="form-label">Brand </label>
 
-        
           <select
-          className="form-control"
-          name="brand"
-        value={formData.brand}
-        onChange={handleChange}
-        required
-      >
-
- 
-      <option value="">Please select the brand</option>
-      <option value="Dell">Dell</option>
-       <option value="HP">HP</option>
-        <option value="Lenovo">Lenovo</option>
-       </select>
+            className="form-control"
+            name="brand"
+            value={formData.brand}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Please select the brand</option>
+            <option value="Dell">Dell</option>
+            <option value="HP">HP</option>
+            <option value="Lenovo">Lenovo</option>
+          </select>
         </div>
 
-       
         <div className="mb-3 mt-3">
           <label className="form-label">Price: </label>
           <input
@@ -241,7 +251,7 @@ function AddEditProduct({ onCancel }) {
           />
         </div>
 
-         <div className="mb-3 mt-3">
+        <div className="mb-3 mt-3">
           <label className="form-label">Online Price:</label>
           <input
             className="form-control"
@@ -251,7 +261,6 @@ function AddEditProduct({ onCancel }) {
             onChange={handleChange}
           />
         </div>
-
 
         <div className="mb-3 mt-3">
           <label className="form-label">Dealer Price:</label>
@@ -264,32 +273,23 @@ function AddEditProduct({ onCancel }) {
           />
         </div>
 
-   
-
-
-
         <div className="mb-3 mt-3">
           <label className="form-label">Brand :</label>
 
-        
           <select
-          className="form-control"
-          name="dealerName"
-        value={formData.dealerName}
-        onChange={handleChange}
-        required
-      >
-
-      <option value="">Please select dealer name</option>
-      <option value="Prime Computers">Prime Computers</option>
-       <option value="JP Computers">JP Computers</option>
-        <option value="FlipCart Computers">FlipCart Computers</option>
-        <option value="AK Infotech">AK Infotech</option>
-       </select>
+            className="form-control"
+            name="dealerName"
+            value={formData.dealerName}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Please select dealer name</option>
+            <option value="Prime Computers">Prime Computers</option>
+            <option value="JP Computers">JP Computers</option>
+            <option value="FlipCart Computers">FlipCart Computers</option>
+            <option value="AK Infotech">AK Infotech</option>
+          </select>
         </div>
-
-
-
 
         <div className="mb-3 mt-3">
           <label className="form-label">Image:</label>
@@ -312,24 +312,21 @@ function AddEditProduct({ onCancel }) {
           />
         </div>
 
-
-
         <div className="mb-3 mt-3">
           <label className="form-label">Payment Mode:</label>
 
-        
           <select
-          className="form-control"
-        value={formData.paymentMode}
-        name = "paymentMode"
-        onChange={handleChange}
-        required
-      >
-      <option value="">Please select mode</option>
-      <option value="COD">COD</option>
-       <option value="EMI">EMI</option>
-        <option value="PAID">PAID</option>
-       </select>
+            className="form-control"
+            value={formData.paymentMode}
+            name="paymentMode"
+            onChange={handleChange}
+            required
+          >
+            <option value="">Please select mode</option>
+            <option value="COD">COD</option>
+            <option value="EMI">EMI</option>
+            <option value="PAID">PAID</option>
+          </select>
         </div>
 
         <div className="buttons">

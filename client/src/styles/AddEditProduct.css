@@ -22,7 +22,7 @@
   font-weight: 600;
 }
 
-.add-edit-product input,
+.add-edit-product,
 .add-edit-product textarea {
   width: 100%;
   padding: 8px;
@@ -43,4 +43,9 @@
 .add-edit-product button:last-child {
   background-color: #dc3545;
   margin-left: 10px;
+}
+
+.form-check-input
+{
+  border: solid 1px #795548 !important;
 }

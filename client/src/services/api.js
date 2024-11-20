@@ -13,8 +13,6 @@ const api = axios.create({
 // CRUD operations
 
 export const getAllProducts = async (page, limit, filters = {}) => {
-
-debugger;
   try {
     const queryParams = new URLSearchParams({
       page,

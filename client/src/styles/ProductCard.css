@@ -1,6 +1,7 @@
 /* ProductCard.css */
 
 .product-card {
+  position: relative;
   border: 1px solid #ccc;
   padding: 10px;
   background-color: white;
@@ -67,3 +68,30 @@ span {
   font-size: 14px;
   color: #878787;
 }
+
+.available-wrapper {
+
+  position: absolute;
+  color: #fff;
+  padding: -1px 30px;
+  right: -5px;
+  left: 0px;
+  top: 0px;
+  width: 37%;
+  line-height: 29px;
+  border-right: 23px;
+  border-radius: 0px 0px 8px 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+
+}
+
+.available {
+  background-color: #f5a623; 
+}
+
+.not-available {
+   background-color: #ea4c89
+}
+
+
+

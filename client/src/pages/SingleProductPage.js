@@ -50,6 +50,8 @@ function SingleProductPage({ isAuthenticated }) {
       <div className="product-image">
         <img src={product.imageFile} alt={product.title} />
       </div>
+
+      
       <div className="product-details">
         <h2>{product.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />

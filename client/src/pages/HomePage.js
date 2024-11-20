@@ -153,7 +153,7 @@ function HomePage({ isAuthenticated }) {
   }, [filters]);
 
   return (
-    <Container>
+    <Container-Fluid>
       <div className="home-page">
          <div className="d-flex justify-content-between align-items-center mb-3">
           <div className="flex-grow-1">
@@ -171,14 +171,14 @@ function HomePage({ isAuthenticated }) {
         </div>
 
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-3">
             <PaymentModeFilter
               filters={filters}
               onFilterChange={handleFilterChange}
             />
           </div>
 
-          <div className="col-md-10">
+          <div className="col-md-9">
             <Outlet />
 
             {loading && products.length === 0 ? (
@@ -216,7 +216,7 @@ function HomePage({ isAuthenticated }) {
           </div>
         </div>
       </div>
-    </Container>
+    </Container-Fluid>
   );
 }
 

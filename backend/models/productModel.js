@@ -39,7 +39,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     enum: ['Prime Computers', 'JP Computers', 'FlipCart Computers', 'AK Infotech'],
     required: [true, 'Payment mode is required']
-  }
+  },
+  availableStatus: { // Single checkbox field
+    type: Boolean,
+    required: true, // or false if optional
+    default: false, // Default value
+  },
 });
 
 const Product = mongoose.model('Product', productSchema);
