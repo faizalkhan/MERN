@@ -7,7 +7,7 @@ import {
   deleteProduct,
 } from "../services/api";
 import { useNavigate } from "react-router-dom";
-
+import { LoadingSpinner } from "../components/common/Spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,6 +22,8 @@ function AddEditProduct({ onCancel }) {
   const [editingProduct, setEditingProduct] = useState(null);
 
   const [paymentMode, setPaymentMode] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,11 +41,11 @@ function AddEditProduct({ onCancel }) {
 
     try {
       if (editingProduct) {
-        await updateProduct(editingProduct._id, productData);
+        await updateProduct(editingProduct._id, productData, setLoading);
 
         setEditingProduct(null);
       } else {
-        await createProduct(productData);
+        await createProduct(productData, setLoading);
       }
       fetchProducts();
     } catch (error) {
@@ -85,9 +87,7 @@ function AddEditProduct({ onCancel }) {
   }, [product]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    console.log(e.target.checked);
-
+    const { name, value, type, checked } = e.target; 
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
@@ -183,7 +183,8 @@ function AddEditProduct({ onCancel }) {
         &larr; Back
       </button>
       <h2>{product ? "Edit Product" : "Add Product"}</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+
+       {loading ?  <LoadingSpinner /> :   <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3 mt-3">
           <label className="form-check-label float-start">
             Stock available status{" "}
@@ -337,7 +338,9 @@ function AddEditProduct({ onCancel }) {
             Cancel
           </button>
         </div>
-      </form>
+      </form>  }
+
+   
       <ToastContainer />
     </div>
   );

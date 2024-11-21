@@ -4,8 +4,6 @@ import { Link, Outlet } from "react-router-dom";
 import AddEditProduct from "../components/AddEditProduct"; // Import the AddEditProduct component
 import {
   getAllProducts,
-  createProduct,
-  updateProduct,
   deleteProduct,
 } from "../services/api"; // Import your CRUD functions
 import "../styles/HomePage.css";
@@ -22,6 +20,8 @@ function HomePage({ isAuthenticated }) {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
   const [filters, setFilters] = useState({
     DELL: false,
     HP: false,
@@ -39,6 +39,7 @@ function HomePage({ isAuthenticated }) {
       fetchProducts(query);
     }, 1000)
   ).current;
+
 
   const fetchProducts = async (query = searchQuery) => {
     if (loading || searchLoading) return;
@@ -58,7 +59,8 @@ function HomePage({ isAuthenticated }) {
       const { products: newProducts, total } = await getAllProducts(
         page,
         limit,
-        apiFilters
+        apiFilters,
+        setLoading
       );
       setProducts((prev) => [...prev, ...newProducts]);
       setTotalProduct(total);
@@ -81,7 +83,9 @@ function HomePage({ isAuthenticated }) {
 
   const handleDelete = async (productId) => {
     try {
-      await deleteProduct(productId);
+      await deleteProduct(productId, setLoading);
+      setProducts([]); 
+      setPage(1);
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
