@@ -56,3 +56,19 @@
   {
     margin-left: 3px;
   }
+
+ .apply-btn
+ {
+  position: relative;
+  padding: 10px 20px;
+  top: -38px;
+  bottom: 0px;
+  left: 50px;
+  z-index: 1001;
+  width: 80px;
+  display: block;
+  color: #FF9800;
+  float: left;
+  border: solid 1px #9E9E9E;
+  cursor: pointer;
+ }
