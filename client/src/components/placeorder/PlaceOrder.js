@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PlaceOrder = () => {
+const PlaceOrder = ({title, description, price}) => {
   // State to store order details (you can expand this as needed)
   const [orderDetails, setOrderDetails] = useState({
     product: null,
@@ -14,9 +14,9 @@ const PlaceOrder = () => {
   // Function to create the WhatsApp message
   const createWhatsAppMessage = () => {
     const message = `Hello, I would like to place an order for the following product:\n\n
-                      Product: ${orderDetails.product}\n
-                      Quantity: ${orderDetails.quantity}\n
-                      Price: ₹${orderDetails.price}\n
+                      Product: ${title}\n
+                      Quantity: ${description}\n
+                      Price: ₹${price}\n
                       `;
     // URL-encode the message
     return encodeURIComponent(message);
@@ -24,9 +24,9 @@ const PlaceOrder = () => {
 
   return (
     <div>
-      {/* <p>Product: {orderDetails.product}</p>
+      <p>Product: {orderDetails.product}</p>
       <p>Quantity: {orderDetails.quantity}</p>
-      <p>Price: ₹{orderDetails.price}</p> */}
+      <p>Price: ₹{orderDetails.price}</p>
 
       <a
         href={`https://wa.me/${whatsappNumber}?text=${createWhatsAppMessage()}`}
