@@ -47,10 +47,10 @@
     display: block;
   }
 
-  .row>*
+  /* .row>*
   {
      width: auto !important;
-  }
+  } */
 
   .btn-outline-secondary
   {
