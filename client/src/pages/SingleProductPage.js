@@ -5,6 +5,7 @@ import "../styles/SingleProductPage.css";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/common/Spinner";
 import ShareButton from "../components/ShareButton";
+import PlaceOrder from "../components/placeorder/PlaceOrder";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -98,6 +99,8 @@ function SingleProductPage({ isAuthenticated }) {
             description={product.description}
             url={productUrl} // Replace with your product URL
           />
+
+          <PlaceOrder/>
           {/* <button className="buy-now">Buy Now</button>
           <button className="add-to-cart">Add to Cart</button> */}
         </div>

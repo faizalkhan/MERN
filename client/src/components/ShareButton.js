@@ -19,8 +19,15 @@ const ShareButton = ({ title, description, url }) => {
 
   return (
     <div>
-      <div onClick={() => handleShare("whatsapp")}>
-        <FontAwesomeIcon icon={faWhatsapp} size="2x" />
+      <div onClick={() => handleShare("whatsapp")}  style={{
+          display: "inline-block",
+          backgroundColor: "#3F51B5", // WhatsApp color
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          textDecoration: "none",
+        }}>
+        <FontAwesomeIcon icon={faWhatsapp} size="2x" /> Share
       </div>
     </div>
   );
