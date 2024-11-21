@@ -9,7 +9,7 @@ const PlaceOrder = () => {
   });
 
   // WhatsApp phone number (replace with the number you want orders sent to)
-  const whatsappNumber = "9994442863"; // Example: +91xxxxxxxxxx
+  const whatsappNumber = "919994442863"; // Example: +91xxxxxxxxxx
 
   // Function to create the WhatsApp message
   const createWhatsAppMessage = () => {
@@ -24,9 +24,9 @@ const PlaceOrder = () => {
 
   return (
     <div>
-      <p>Product: {orderDetails.product}</p>
+      {/* <p>Product: {orderDetails.product}</p>
       <p>Quantity: {orderDetails.quantity}</p>
-      <p>Price: ₹{orderDetails.price}</p>
+      <p>Price: ₹{orderDetails.price}</p> */}
 
       <a
         href={`https://wa.me/${whatsappNumber}?text=${createWhatsAppMessage()}`}
