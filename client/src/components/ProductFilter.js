@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import "../styles/PaymentModeFilter.css";
+import "../styles/ProductFilter.css";
 
-const PaymentModeFilter = ({ filters, onFilterChange }) => {
+const ProductFilter = ({ filters, onFilterChange }) => {
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const handleFilterChange = (range) => {
     const newSelection = selectedPriceRange === range ? "res" : range;
@@ -170,4 +170,4 @@ const PaymentModeFilter = ({ filters, onFilterChange }) => {
   );
 };
 
-export default PaymentModeFilter;
+export default ProductFilter;

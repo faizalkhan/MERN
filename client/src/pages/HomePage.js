@@ -9,10 +9,11 @@ import {
 import "../styles/HomePage.css";
 import SearchBar from "../components/SearchBar";
 import { LoadingSpinner } from "../components/common/Spinner";
-import PaymentModeFilter from "../components/PaymentModeFilter";
+import ProductFilter from "../components/ProductFilter";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { debounce } from "lodash";
 import Container from "react-bootstrap/Container";
+import Drawer from "../components/filtersidemenu/Drawer";
 
 function HomePage({ isAuthenticated }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -175,13 +176,29 @@ function HomePage({ isAuthenticated }) {
         </div>
 
         <div className="row">
-          <div className="col-md-3">
-            <PaymentModeFilter
-              filters={filters}
-              onFilterChange={handleFilterChange}
-            />
-          </div>
 
+        <div className="d-md-none d-flex justify-content-center product-filter-mobile">
+        <Drawer filters={filters} onFilterChange={handleFilterChange} />
+
+  
+</div>
+
+<div className="d-md-block d-none col-md-3">
+
+
+
+
+
+  <ProductFilter
+    filters={filters}
+    onFilterChange={handleFilterChange}
+  />
+</div>
+
+
+
+
+      
           <div className="col-md-9">
             <Outlet />
 
