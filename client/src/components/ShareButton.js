@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import "../styles/ShareBtn.css";
 
 const ShareButton = ({ title, description, url }) => {
   const handleShare = (platform) => {
@@ -21,13 +22,24 @@ const ShareButton = ({ title, description, url }) => {
     <div>
       <div onClick={() => handleShare("whatsapp")}  style={{
           display: "inline-block",
-          backgroundColor: "#3F51B5", // WhatsApp color
+          backgroundColor: "#25D366", // WhatsApp color
           color: "#fff",
           padding: "10px 20px",
           borderRadius: "5px",
           textDecoration: "none",
-        }}>
-        <FontAwesomeIcon icon={faWhatsapp} size="2x" /> Share
+          cursor:"pointer"
+        }}
+        
+        
+   
+        
+        
+        
+        
+        
+        >
+        <FontAwesomeIcon icon={faWhatsapp} size="2x" /> 
+        <span> Share</span>
       </div>
     </div>
   );

@@ -100,12 +100,12 @@ function SingleProductPage({ isAuthenticated }) {
             url={productUrl} // Replace with your product URL
           />
 
-          {console.log(product.description)}
+       
 
-          <PlaceOrder   
+          {/* <PlaceOrder   
           title={product.title}
           description={product.description}
-          price = {product.price}/>
+          price = {product.price}/> */}
           {/* <button className="buy-now">Buy Now</button>
           <button className="add-to-cart">Add to Cart</button> */}
         </div>
