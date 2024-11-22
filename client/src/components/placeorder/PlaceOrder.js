@@ -21,8 +21,8 @@ const PlaceOrder = ({title, description, price}) => {
   const createWhatsAppMessage = () => {
     const message = `Hello, I would like to place an order for the following product:\n\n
                       Product: ${title}\n
-                      Quantity: ${textDescription} \n
-                      Price: ₹${price}\n
+                      Quantity: ${textDescription}\n
+                      Priceeeeeeeeee: ₹${price}\n
                       `;
     // URL-encode the message
     return encodeURIComponent(message);
@@ -31,8 +31,8 @@ const PlaceOrder = ({title, description, price}) => {
   return (
     <div>
       <p>Product: {orderDetails.product}</p>
-      <p>Quantity: {orderDetails.quantity}</p>
-      <p>Price: ₹{orderDetails.price}</p>
+      <p>Quantity: {textDescription}</p>
+      <p>Prices: ₹{orderDetails.price}</p>
 
       <a
         href={`https://wa.me/${whatsappNumber}?text=${createWhatsAppMessage()}`}
