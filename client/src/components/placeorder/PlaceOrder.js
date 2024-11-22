@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-
+import DOMPurify from "dompurify";
 const PlaceOrder = ({title, description, price}) => {
+
+    const sanitizedDescription = DOMPurify.sanitize(description);
   // State to store order details (you can expand this as needed)
   const [orderDetails, setOrderDetails] = useState({
     product: null,
@@ -10,6 +12,8 @@ const PlaceOrder = ({title, description, price}) => {
 
   console.log(description)
 
+  const textDescription = sanitizedDescription.replace(/<\/?[^>]+(>|$)/g, "");
+
   // WhatsApp phone number (replace with the number you want orders sent to)
   const whatsappNumber = "919994442863"; // Example: +91xxxxxxxxxx
 
@@ -17,7 +21,7 @@ const PlaceOrder = ({title, description, price}) => {
   const createWhatsAppMessage = () => {
     const message = `Hello, I would like to place an order for the following product:\n\n
                       Product: ${title}\n
-                      Quantity: ${description}\n
+                      Quantity: ${textDescription} \n
                       Price: ₹${price}\n
                       `;
     // URL-encode the message
