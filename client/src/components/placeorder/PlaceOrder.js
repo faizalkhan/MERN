@@ -22,8 +22,8 @@ const PlaceOrder = ({title, description, price}) => {
   // Function to create the WhatsApp message
   const createWhatsAppMessage = () => {
     const message = `Hello, I would like to place an order for the following product:\n
-    *Product:* *${title}*\n
-    *Price:* *₹${price}*\n
+*Product:* *${title}*\n
+*Price:* *₹${price}*\n
                       `;
     // URL-encode the message
     return encodeURIComponent(message);
