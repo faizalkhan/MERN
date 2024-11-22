@@ -8,6 +8,8 @@ const PlaceOrder = ({title, description, price}) => {
     price: null
   });
 
+  console.log(description)
+
   // WhatsApp phone number (replace with the number you want orders sent to)
   const whatsappNumber = "919994442863"; // Example: +91xxxxxxxxxx
 

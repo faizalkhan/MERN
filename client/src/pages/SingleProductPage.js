@@ -100,6 +100,8 @@ function SingleProductPage({ isAuthenticated }) {
             url={productUrl} // Replace with your product URL
           />
 
+          {console.log(product.description)}
+
           <PlaceOrder   
           title={product.title}
           description={product.description}
