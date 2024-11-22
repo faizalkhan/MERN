@@ -10,9 +10,11 @@ const PlaceOrder = ({title, description, price}) => {
     price: null
   });
 
-  console.log(description)
+  console.log("desc", description)
 
   const textDescription = sanitizedDescription.replace(/<\/?[^>]+(>|$)/g, "");
+
+  console.log("textdesc", textDescription)
 
   // WhatsApp phone number (replace with the number you want orders sent to)
   const whatsappNumber = "919994442863"; // Example: +91xxxxxxxxxx
