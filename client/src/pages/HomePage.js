@@ -75,15 +75,16 @@ function HomePage({ isAuthenticated }) {
     }
   };
 
-  const handleEdit = (product) => {
+  const handleEdit = useCallback((product) => {
     setEditingProduct(product);
-  };
+  },
+  []);
 
   const handleCancel = () => {
     setEditingProduct(null);
   };
 
-  const handleDelete = async (productId) => {
+  const handleDelete = useCallback(async (productId) => {
     try {
       await deleteProduct(productId, setLoading);
       setProducts([]); 
@@ -92,7 +93,8 @@ function HomePage({ isAuthenticated }) {
     } catch (error) {
       console.error("Error deleting product:", error);
     }
-  };
+  },
+  [])
 
   const handleFilterChange = (mode) => {
     isFirstFetch.current = true;
