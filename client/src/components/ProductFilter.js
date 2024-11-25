@@ -170,4 +170,4 @@ const ProductFilter = ({ filters, onFilterChange }) => {
   );
 };
 
-export default ProductFilter;
+export default React.memo(ProductFilter);
