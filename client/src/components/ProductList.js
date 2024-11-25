@@ -32,4 +32,4 @@ function ProductList({ products, onDelete, isAuthenticated}) {
   );
 }
 
-export default ProductList;
+export default React.memo(ProductList);

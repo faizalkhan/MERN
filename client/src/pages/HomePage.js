@@ -37,6 +37,7 @@ function HomePage({ isAuthenticated }) {
   const debouncedSearch = useRef(
     debounce((query) => {
       setProducts([]);
+      setPage(1);
       fetchProducts(query);
     }, 1000)
   ).current;
