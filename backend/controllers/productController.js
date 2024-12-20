@@ -127,14 +127,16 @@ const updateProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
+
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = 10;
     const skip = (page - 1) * limit;
+   
 
     const { search, filterDell, filterHp, filterLenovo, priceRange, ...otherFilters } =
       req.query;
     const allowedFilters = ["filterDell", "filterHp", "filterLenovo", "priceRange"];
-    const allowedQueryParams = ["page", "limit", "search", ...allowedFilters];
+    const allowedQueryParams = ["page", "search", ...allowedFilters];
 
     const invalidKeys = Object.keys(otherFilters).filter(
       (key) => !allowedQueryParams.includes(key)

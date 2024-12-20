@@ -25,21 +25,33 @@ const withLoading = async (apiCall, setLoading) => {
 
 // CRUD operations
 
-export const getAllProducts = async (page, limit, filters = {}, setLoading) => {
-  return withLoading(async () => {
-    const queryParams = new URLSearchParams({
-      page,
-      limit,
-      search: filters.search || "", // Search query, default to empty
-      filterDell: filters.filterDell,
-      filterHp: filters.filterHP,
-      filterLenovo: filters.filterLenovo,
-      priceRange: filters.priceRange,
-    });
-    const response = await api.get(`api/products?${queryParams.toString()}`);
+export const getAllProducts = async ({search, page, filters}) => {
 
-    return response.data;
-  }, setLoading);
+
+ const queryParams = new URLSearchParams({
+  page,
+  search: search || "",
+  filterDell: filters.DELL,
+  filterHp: filters.HP,
+  filterLenovo: filters.LENOVO,
+  priceRange: filters.priceRange,
+});
+
+const response = await api.get(`api/products?${queryParams.toString()}`);
+console.log("res", response.data)
+
+return response.data;
+
+
+
+
+
+
+
+
+  // return withLoading(async () => {
+   
+  // }, setLoading);
 };
 
 export const createProduct = async (productData, setLoading) => {
@@ -65,10 +77,14 @@ export const updateProduct = async (productId, productData, setLoading) => {
 };
 
 export const deleteProduct = async (productId, setLoading) => {
-  return withLoading(async () => {
-    const response = await api.delete(`api/products/${productId}`);
-    return response.data;
-  }, setLoading);
+ 
+  const response = await api.delete(`api/products/${productId}`);
+  return response.data;
+
+
+  // return withLoading(async () => {
+
+  // }, setLoading);
 };
 
 export default api;

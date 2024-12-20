@@ -131,6 +131,8 @@ function AddEditProduct({ onCancel }) {
       formPayload.append("imageFile", formData.imageFile);
     }
 
+    console.log("formdaya", formData.imageFile);
+
     if (
       !formData.price ||
       !formData.onlinePrice ||
