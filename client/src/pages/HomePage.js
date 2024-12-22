@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback} from "react";
 import ProductList from "../components/ProductList";
 import { Link, Outlet } from "react-router-dom";
 import AddEditProduct from "../components/AddEditProduct"; // Import the AddEditProduct component

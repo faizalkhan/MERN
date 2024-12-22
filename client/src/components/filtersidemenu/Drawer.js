@@ -69,4 +69,4 @@ const Drawer = ({ filters, onFilterChange }) => {
   );
 };
 
-export default Drawer;
+export default React.memo(Drawer);
