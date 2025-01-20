@@ -1,48 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios"; // Import Axios or your preferred HTTP library
-import "../styles/SingleProductPage.css";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useRouter } from "next/router"; 
 import { LoadingSpinner } from "../components/common/Spinner";
 import ShareButton from "../components/ShareButton";
 import PlaceOrder from "../components/placeorder/PlaceOrder";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-function SingleProductPage({ isAuthenticated }) {
-  const { productId } = useParams();
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+function SingleProductPage({ productId, isAuthenticated }) {
+  const router = useRouter(); 
   const [product, setProduct] = useState(null);
-  const navigate = useNavigate();
-
   useEffect(() => {
-    fetchProduct(productId);
+    if (productId) {
+      fetchProduct(productId);
+    }
   }, [productId]);
 
-  const fetchProduct = async (id) => {
+  const fetchProduct = async (productId) => {
     try {
-      const response = await axios.get(`${API_URL}api/products/${id}`); // Adjust the API endpoint
+      const response = await axios.get(`${API_URL}/api/products/${productId}`); // Adjust the API endpoint
       setProduct(response.data);
     } catch (error) {
       console.error("Error fetching product:", error);
+      router.push("/");
     }
   };
 
   const handleBackClick = () => {
     const isInternalReferrer = document.referrer && document.referrer.includes(window.location.origin);
     if (isInternalReferrer) {
-      navigate(-1);
+      router.back();
     } else {
-      navigate('/');
+      router.push("/");
     }
   };
-
 
   if (!product) {
     return <LoadingSpinner />;
   }
   const productUrl = `${window.location.origin}/product/${product._id}`;
 
-  //const imageSrc = `${API_URL}${product.imageFile}`;
   return (
     <div className="single-product-page">
       <button className="back-button" onClick={handleBackClick}>
@@ -97,7 +95,7 @@ function SingleProductPage({ isAuthenticated }) {
           <ShareButton
             title={product.title}
             description={product.description}
-            url={productUrl} // Replace with your product URL
+            url={productUrl}
           />
 
        
@@ -105,8 +103,10 @@ function SingleProductPage({ isAuthenticated }) {
           {/* <PlaceOrder   
           title={product.title}
           description={product.description}
-          price = {product.price}/> */}
-          {/* <button className="buy-now">Buy Now</button>
+          price = {product.price}/>  */}
+
+
+          {/* {/* <button className="buy-now">Buy Now</button>
           <button className="add-to-cart">Add to Cart</button> */}
         </div>
       </div>

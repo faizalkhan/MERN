@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import "../styles/ProductFilter.css";
 
 const ProductFilter = ({ filters, onFilterChange }) => {
   const [selectedPriceRange, setSelectedPriceRange] = useState("");

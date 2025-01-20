@@ -13,7 +13,9 @@ RUN npm install
 # Copy the entire frontend source code
 COPY . .
 
-# Build the React app
+# Build the React app with the environment variable
+ARG REACT_APP_BACKEND_URL
+ENV REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
 RUN npm run build
 
 # Stage 2: Serve the React app using nginx
@@ -23,7 +25,7 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Expose port 80 to serve the app
-EXPOSE 80
+EXPOSE 6000
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]

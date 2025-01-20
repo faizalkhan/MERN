@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import "../styles/ShareBtn.css";
+
 
 const ShareButton = ({ title, description, url }) => {
   const handleShare = (platform) => {

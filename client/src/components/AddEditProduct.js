@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/AddEditProduct.css";
+
 import {
   getAllProducts,
   createProduct,
@@ -16,8 +16,8 @@ import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
 
 function AddEditProduct({ onCancel }) {
-  const location = useLocation();
-  const product = location.state?.product; // Access the product from state
+  // const location = useLocation();
+  // const product = location.state?.product; // Access the product from state
 
   const [editingProduct, setEditingProduct] = useState(null);
 
@@ -25,7 +25,7 @@ function AddEditProduct({ onCancel }) {
 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const notify = () => toast("Product saved successfully");
 
@@ -68,23 +68,23 @@ function AddEditProduct({ onCancel }) {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    if (product) {
-      setEditingProduct(product);
-      setFormData({
-        title: product.title,
-        description: product.description,
-        brand: product.brand,
-        availableStatus: product.availableStatus,
-        price: product.price,
-        onlinePrice: product.onlinePrice,
-        dealerPrice: product.dealerPrice,
-        dealerName: product.dealerName,
-        paymentMode: product.paymentMode,
-        imageFile: product.imageFile,
-        previewUrl: product.imageFile ? `${product.imageFile}` : null,
-      });
-    }
-  }, [product]);
+    // if (product) {
+    //   setEditingProduct(product);
+    //   setFormData({
+    //     title: product.title,
+    //     description: product.description,
+    //     brand: product.brand,
+    //     availableStatus: product.availableStatus,
+    //     price: product.price,
+    //     onlinePrice: product.onlinePrice,
+    //     dealerPrice: product.dealerPrice,
+    //     dealerName: product.dealerName,
+    //     paymentMode: product.paymentMode,
+    //     imageFile: product.imageFile,
+    //     previewUrl: product.imageFile ? `${product.imageFile}` : null,
+    //   });
+    // }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target; 
@@ -184,7 +184,7 @@ function AddEditProduct({ onCancel }) {
       <button className="back-button" onClick={() => navigate(-1)}>
         &larr; Back
       </button>
-      <h2>{product ? "Edit Product" : "Add Product"}</h2>
+      {/* <h2>{ product = true ? "Edit Product" : "Add Product"}</h2> */}
 
        {loading ?  <LoadingSpinner /> :   <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3 mt-3">
@@ -310,7 +310,7 @@ function AddEditProduct({ onCancel }) {
             name="imageFile"
             onChange={handleFileChange}
             accept="image/*"
-            required={!product}
+      
             ref={fileInputRef}
           />
         </div>
@@ -334,7 +334,7 @@ function AddEditProduct({ onCancel }) {
 
         <div className="buttons">
           <button type="submit">
-            {product ? "Save Changes" : "Add Product"}
+        
           </button>
           <button type="button" onClick={onCancel}>
             Cancel

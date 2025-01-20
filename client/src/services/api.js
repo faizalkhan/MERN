@@ -2,7 +2,7 @@
 import axios from "axios";
 import { set } from "lodash";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const api = axios.create({
   baseURL: API_URL,

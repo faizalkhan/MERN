@@ -3,7 +3,7 @@ import ProductList from "../components/ProductList";
 import { Link, Outlet } from "react-router-dom";
 import AddEditProduct from "../components/AddEditProduct"; // Import the AddEditProduct component
 import { getAllProducts, deleteProduct } from "../services/api"; // Import your CRUD functions
-import "../styles/HomePage.css";
+
 import SearchBar from "../components/SearchBar";
 import { LoadingSpinner } from "../components/common/Spinner";
 import ProductFilter from "../components/ProductFilter";
@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import Container from "react-bootstrap/Container";
 import Drawer from "../components/filtersidemenu/Drawer";
 import { useQueryClient } from "@tanstack/react-query";
+import SEO from "../components/seo/SEO";
 
 function HomePage({ isAuthenticated }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -115,7 +116,7 @@ function HomePage({ isAuthenticated }) {
 
 
   const handleDelete = async (productId) => {
-    debugger;
+
     try {
       await deleteProduct(productId);
       queryClient.invalidateQueries(["products", searchQuery, filters]);
@@ -128,6 +129,12 @@ function HomePage({ isAuthenticated }) {
   };
 
   return (
+<>
+<SEO
+title="Learning React Helmet!"
+description="Beginner friendly page for learning React Helmet"
+/>
+
     <Container-Fluid>
       <div className="home-page">
         <div className="d-flex justify-content-between align-items-center mb-3">
@@ -184,6 +191,9 @@ function HomePage({ isAuthenticated }) {
         </div>
       </div>
     </Container-Fluid>
+
+    </>
+
   );
 }
 

@@ -1,25 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import ProductCard from "./ProductCard";
-import "../styles/ProductList.css";
+import { useRouter } from "next/router"; 
 
 function ProductList({ products, onDelete, isAuthenticated}) {
   const [editingProduct, setEditingProduct] = useState(null);
-  const navigate = useNavigate();
+
+  const router = useRouter();
 
   const handleEdit = (product) => {
     setEditingProduct(product);
-    navigate("/add-product", { state: { product } });
+
+
+
+    // navigate("/add-product", { state: { product } });
+
+
+    // router.push({
+    //   pathname: "/add-product",
+    //   query: { product: JSON.stringify(product) },  // Passing product data via query string
+    // });
+
     // navigate("/add-product");
   };
   const handleCancelEdit = () => {
     setEditingProduct(null);
-    navigate("/"); // Navigate back to the product list or wherever appropriate
+    //navigate("/"); // Navigate back to the product list or wherever appropriate
+
+    //router.push("/");
   };
 
+  console.log("Product list selected");
   return (
     <div className="product-list">
-      {products.map((product, index) => (
+      {products?.map((product, index) => (
         <ProductCard
           key={`${product.id}-${index}`}         
           product={product}

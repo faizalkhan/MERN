@@ -1,19 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { HelmetProvider } from 'react-helmet-async';
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();
-
+const helmetContext = {};
 
 root.render(
   <React.StrictMode>
+   <HelmetProvider context={helmetContext}>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <App />     
     </QueryClientProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

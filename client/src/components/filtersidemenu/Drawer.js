@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import "../../styles/Drawer.css";
 import ProductFilter from "../ProductFilter";
 import CloseButton from "react-bootstrap/CloseButton";
 
