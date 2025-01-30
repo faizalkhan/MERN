@@ -9,7 +9,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from 'next/link';
 
-const Sidebar = () => {
+const Sidebar = ({ onToggle }: { onToggle: (isExpanded: boolean) => void }) => {
+
   const [isExpanded, setIsExpanded] = useState(false);
 
   const navigation = [
@@ -17,16 +18,23 @@ const Sidebar = () => {
     { name: "Product List", href: "/admin/productItemList", icon: <WrenchIcon className="h-6 w-6" /> },
   ];
 
+
+  const toggleSidebar = () => {
+    const newState = !isExpanded;
+    setIsExpanded(newState);
+    onToggle(newState); // Notify parent about the toggle state
+  };
+
   return (
     
       <div
-        className={`transition-all duration-300 bg-white shadow-md h-full ${
-          isExpanded ? "w-64" : "w-16"
-        } md:relative fixed`}
+        className={`transition-all duration-300 bg-white shadow-md h-full z-40 ${
+        isExpanded ? "w-40" : "w-16"
+      } fixed`}
       >
 
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={toggleSidebar}
           className="p-3 focus:outline-none flex justify-center"
         >
           <Bars3Icon className="h-6 w-6 text-gray-600" />
@@ -35,17 +43,12 @@ const Sidebar = () => {
         {/* Navigation */}
         <nav className="mt-4 space-y-4">
           {navigation.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center space-x-4 px-4 py-2 hover:bg-gray-200 transition-all duration-200"
-            >
-              {item.icon}
-
-              <Link href={item.href}>
-           {isExpanded && <span className="text-gray-700">{item.name}</span>}
+            <Link href={item.href} key={index}>
+              <div className="flex items-center space-x-2 py-2 px-3 hover:bg-gray-200 transition-all duration-200 cursor-default">
+                {item.icon}
+                {isExpanded && <span className="text-gray-700">{item.name}</span>}
+              </div>
             </Link>
-          
-            </div>
           ))}
         </nav>
       </div>
